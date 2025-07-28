@@ -90,9 +90,9 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <div
         className={`
-        fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl
+        fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900
         transform transition-transform duration-300 ease-in-out z-50
-        border-r border-gray-200/50 dark:border-gray-700/50
+        border-r border-gray-200 dark:border-gray-700
         lg:translate-x-0 lg:static lg:inset-0
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         shadow-2xl lg:shadow-none

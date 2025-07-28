@@ -13,24 +13,66 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved || "system";
+    return saved || "light"; // Default to light for easier testing
   });
 
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const updateTheme = () => {
+      console.log("Updating theme:", theme);
+      const html = document.documentElement;
+
       if (theme === "system") {
         const systemDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
         ).matches;
+        console.log("System dark mode:", systemDark);
         setIsDark(systemDark);
-        document.documentElement.classList.toggle("dark", systemDark);
-      } else {
-        const dark = theme === "dark";
-        setIsDark(dark);
-        document.documentElement.classList.toggle("dark", dark);
+
+        html.classList.remove("dark");
+        if (systemDark) {
+          html.classList.add("dark");
+        }
+      } else if (theme === "dark") {
+        console.log("Setting dark mode: true");
+        setIsDark(true);
+        html.classList.remove("dark");
+        html.classList.add("dark");
+      } else if (theme === "light") {
+        console.log("Setting light mode: true");
+        setIsDark(false);
+        html.classList.remove("dark");
       }
+
+      // Force browser repaint
+      const body = document.body;
+      html.style.display = "none";
+      html.offsetHeight; // trigger reflow
+      html.style.display = "";
+
+      // Debug info
+      console.log("HTML classes after update:", html.className);
+      console.log(
+        "HTML element has 'dark' class:",
+        html.classList.contains("dark")
+      );
+      console.log(
+        "Body computed background:",
+        window.getComputedStyle(body).backgroundColor
+      );
+      console.log(
+        "HTML computed background:",
+        window.getComputedStyle(html).backgroundColor
+      );
+
+      console.log("Theme state:", {
+        theme,
+        isDark:
+          theme === "dark" ||
+          (theme === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches),
+      });
     };
 
     updateTheme();
@@ -49,6 +91,7 @@ export const ThemeProvider = ({ children }) => {
   }, [theme]);
 
   const changeTheme = (newTheme) => {
+    console.log("ThemeContext: Setting theme to:", newTheme);
     setTheme(newTheme);
   };
 

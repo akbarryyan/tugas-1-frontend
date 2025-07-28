@@ -34,11 +34,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-900/20">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
       <div className="max-w-md w-full space-y-8 animate-fade-in">
         <div className="text-center">
           {/* Enhanced Company Logo */}
-          <div className="mx-auto h-20 w-20 bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+          <div className="mx-auto h-20 w-20 bg-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
             <svg
               className="h-10 w-10 text-white"
               fill="none"
@@ -54,7 +54,7 @@ const LoginForm = () => {
             </svg>
           </div>
 
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-indigo-600 dark:from-white dark:to-indigo-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
             Employee Management
           </h2>
           <p className="mt-3 text-gray-600 dark:text-gray-400 text-lg">
@@ -62,10 +62,10 @@ const LoginForm = () => {
           </p>
         </div>
 
-        <div className="card p-8 backdrop-blur-sm bg-white/80 dark:bg-gray-800/80 border-2 border-white/20 dark:border-gray-700/30 shadow-2xl">
+        <div className="card p-8 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 shadow-2xl">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="animate-scale-in bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 border-2 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm shadow-lg">
+              <div className="animate-scale-in bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm shadow-lg">
                 <div className="flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
@@ -187,7 +187,7 @@ const LoginForm = () => {
               )}
             </button>
 
-            <div className="mt-6 p-6 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
+            <div className="mt-6 p-6 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
               <div className="flex items-center mb-3">
                 <svg
                   className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mr-2"

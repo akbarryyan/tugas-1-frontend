@@ -14,6 +14,7 @@ const Navbar = ({ onMenuClick }) => {
   };
 
   const handleThemeChange = (newTheme) => {
+    console.log("Changing theme to:", newTheme);
     changeTheme(newTheme);
     setThemeDropdownOpen(false);
   };
@@ -72,7 +73,7 @@ const Navbar = ({ onMenuClick }) => {
   };
 
   return (
-    <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 px-6 py-4 shadow-sm">
+    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Mobile menu button */}
         <button onClick={onMenuClick} className="lg:hidden btn-ghost p-2">
@@ -105,40 +106,43 @@ const Navbar = ({ onMenuClick }) => {
             <button
               onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
               className="btn-ghost p-2 relative"
+              aria-label="Theme Switcher"
             >
               {getThemeIcon(theme)}
             </button>
 
             {themeDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
-                {themes.map((themeOption) => (
-                  <button
-                    key={themeOption.value}
-                    onClick={() => handleThemeChange(themeOption.value)}
-                    className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center space-x-2 ${
-                      theme === themeOption.value
-                        ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20"
-                        : "text-gray-700 dark:text-gray-300"
-                    }`}
-                  >
-                    {getThemeIcon(themeOption.value)}
-                    <span>{themeOption.label}</span>
-                    {theme === themeOption.value && (
-                      <svg
-                        className="w-4 h-4 ml-auto"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+                  {themes.map((themeOption) => (
+                    <button
+                      key={themeOption.value}
+                      onClick={() => handleThemeChange(themeOption.value)}
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center space-x-2 first:rounded-t-lg last:rounded-b-lg transition-colors duration-150 ${
+                        theme === themeOption.value
+                          ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
+                          : "text-gray-700 dark:text-gray-300"
+                      }`}
+                    >
+                      {getThemeIcon(themeOption.value)}
+                      <span>{themeOption.label}</span>
+                      {theme === themeOption.value && (
+                        <svg
+                          className="w-4 h-4 ml-auto"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </>
             )}
           </div>
 
@@ -148,7 +152,7 @@ const Navbar = ({ onMenuClick }) => {
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
               className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 p-2 transition-colors duration-200"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-medium text-sm">
                   {user?.name
                     ?.split(" ")
@@ -239,7 +243,7 @@ const Navbar = ({ onMenuClick }) => {
       {/* Mobile Overlay */}
       {(userDropdownOpen || themeDropdownOpen) && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-40 bg-black/20 lg:bg-transparent"
           onClick={() => {
             setUserDropdownOpen(false);
             setThemeDropdownOpen(false);
