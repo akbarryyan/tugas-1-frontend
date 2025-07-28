@@ -846,7 +846,7 @@ const Employees = () => {
                   />
                 </div>
 
-                <div className="flex space-x-4 pt-6">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6">
                   <button
                     type="button"
                     onClick={resetForm}
