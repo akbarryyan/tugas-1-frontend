@@ -1,10 +1,77 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Add touch handlers for swipe gestures
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    // Close sidebar on left swipe when open
+    if (isLeftSwipe && isOpen) {
+      onClose();
+    }
+  };
+
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isOpen && window.innerWidth < 1024) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  // Add custom styles for animations
+  const customStyles = `
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    @keyframes slideInFromLeft {
+      from { 
+        opacity: 0; 
+        transform: translateX(-20px); 
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    .sidebar-glassmorphism {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+  `;
 
   const navigation = [
     {
@@ -79,30 +146,49 @@ const Sidebar = ({ isOpen, onClose }) => {
 
   return (
     <>
+      <style>{customStyles}</style>
+
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden z-40 animate-fade-in"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden z-40"
           onClick={onClose}
+          style={{
+            animation: "fadeIn 0.3s ease-out forwards",
+          }}
         />
       )}
 
       {/* Sidebar */}
       <div
         className={`
-        fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900
-        transform transition-transform duration-300 ease-in-out z-50
-        border-r border-gray-200 dark:border-gray-700
-        lg:translate-x-0 lg:static lg:inset-0
-        ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        shadow-2xl lg:shadow-none
+        fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 sidebar-glassmorphism
+        transform transition-all duration-500 ease-out z-50
+        border-r border-gray-200/50 dark:border-gray-700/50
+        lg:translate-x-0 lg:static lg:inset-0 lg:bg-white lg:dark:bg-gray-900
+        ${isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full shadow-none"}
+        lg:shadow-none lg:backdrop-blur-none
       `}
+        style={{
+          transitionProperty: "transform, box-shadow, backdrop-filter",
+          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+          <div
+            className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50"
+            style={{
+              animation: isOpen
+                ? "slideInFromLeft 0.6s ease-out 0.2s both"
+                : "none",
+            }}
+          >
             <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg transform transition-transform duration-300 hover:scale-110">
                 <svg
                   className="h-6 w-6 text-white"
                   fill="none"
@@ -130,10 +216,10 @@ const Sidebar = ({ isOpen, onClose }) => {
             {/* Close button for mobile */}
             <button
               onClick={onClose}
-              className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 transform hover:scale-110 active:scale-95"
             >
               <svg
-                className="w-6 h-6"
+                className="w-6 h-6 transition-transform duration-200"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -149,9 +235,16 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           {/* User Profile Section */}
-          <div className="px-6 py-4 border-b border-gray-200/50 dark:border-gray-700/50">
-            <div className="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200/50 dark:border-indigo-800/50">
-              <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
+          <div
+            className="px-6 py-4 border-b border-gray-200/50 dark:border-gray-700/50"
+            style={{
+              animation: isOpen
+                ? "slideInFromLeft 0.6s ease-out 0.3s both"
+                : "none",
+            }}
+          >
+            <div className="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200/50 dark:border-indigo-800/50 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+              <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md transform transition-transform duration-300 hover:scale-110">
                 <span className="text-white font-semibold text-sm">
                   {user?.name?.charAt(0) || "A"}
                 </span>
@@ -168,8 +261,15 @@ const Sidebar = ({ isOpen, onClose }) => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            {navigation.map((item) => {
+          <nav
+            className="flex-1 px-4 py-6 space-y-2 overflow-y-auto"
+            style={{
+              animation: isOpen
+                ? "slideInFromLeft 0.6s ease-out 0.4s both"
+                : "none",
+            }}
+          >
+            {navigation.map((item, index) => {
               const active = isActive(item.href);
               return (
                 <Link
@@ -177,21 +277,28 @@ const Sidebar = ({ isOpen, onClose }) => {
                   to={item.href}
                   onClick={onClose}
                   className={`
-                    group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200
+                    group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 transform hover:scale-[1.02]
                     ${
                       active
-                        ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-[1.02]"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/20 dark:hover:to-purple-900/20 hover:text-indigo-700 dark:hover:text-indigo-300"
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg scale-[1.02]"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/20 dark:hover:to-purple-900/20 hover:text-indigo-700 dark:hover:text-indigo-300 hover:shadow-md"
                     }
                   `}
+                  style={{
+                    animation: isOpen
+                      ? `slideInFromLeft 0.6s ease-out ${
+                          0.5 + index * 0.1
+                        }s both`
+                      : "none",
+                  }}
                 >
                   <div
                     className={`
-                    mr-3 p-1.5 rounded-lg transition-colors
+                    mr-3 p-1.5 rounded-lg transition-all duration-300
                     ${
                       active
-                        ? "bg-white/20"
-                        : "group-hover:bg-indigo-100 dark:group-hover:bg-indigo-800/50"
+                        ? "bg-white/20 shadow-sm"
+                        : "group-hover:bg-indigo-100 dark:group-hover:bg-indigo-800/50 group-hover:shadow-sm"
                     }
                   `}
                   >
@@ -201,14 +308,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{item.name}</span>
                       {active && (
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse shadow-sm"></div>
                       )}
                     </div>
                     <p
-                      className={`text-xs mt-0.5 ${
+                      className={`text-xs mt-0.5 transition-colors duration-300 ${
                         active
                           ? "text-white/80"
-                          : "text-gray-500 dark:text-gray-400"
+                          : "text-gray-500 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
                       }`}
                     >
                       {item.description}
@@ -220,11 +327,18 @@ const Sidebar = ({ isOpen, onClose }) => {
           </nav>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50">
-            <div className="p-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-600">
+          <div
+            className="p-4 border-t border-gray-200/50 dark:border-gray-700/50"
+            style={{
+              animation: isOpen
+                ? "slideInFromLeft 0.6s ease-out 0.8s both"
+                : "none",
+            }}
+          >
+            <div className="p-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-600 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
               <div className="flex items-center text-xs text-gray-600 dark:text-gray-400">
                 <svg
-                  className="w-4 h-4 mr-2 text-green-500"
+                  className="w-4 h-4 mr-2 text-green-500 animate-pulse"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >

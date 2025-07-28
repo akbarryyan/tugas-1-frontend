@@ -76,9 +76,13 @@ const Navbar = ({ onMenuClick }) => {
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Mobile menu button */}
-        <button onClick={onMenuClick} className="lg:hidden btn-ghost p-2">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden btn-ghost p-2 relative overflow-hidden group transform transition-all duration-300 hover:scale-110 active:scale-95 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl"></div>
           <svg
-            className="w-6 h-6"
+            className="w-6 h-6 relative z-10 transform transition-all duration-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-active:rotate-90"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -88,8 +92,12 @@ const Navbar = ({ onMenuClick }) => {
               strokeLinejoin="round"
               strokeWidth={2}
               d="M4 6h16M4 12h16M4 18h16"
+              className="transition-all duration-300 group-hover:stroke-[2.5]"
             />
           </svg>
+
+          {/* Ripple effect */}
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-400/20 to-purple-400/20 transform scale-0 group-active:scale-100 transition-transform duration-150"></div>
         </button>
 
         {/* Page Title */}
