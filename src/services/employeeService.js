@@ -2,6 +2,14 @@
 const STORAGE_KEY = "employees_data";
 const DIVISIONS_KEY = "divisions_data";
 
+// Helper function to trigger storage change event
+const triggerStorageChange = (key, newValue) => {
+  const event = new CustomEvent("localStorageChange", {
+    detail: { key, newValue },
+  });
+  window.dispatchEvent(event);
+};
+
 // Mock divisions data
 const defaultDivisions = [
   { id: "div-001", name: "Mobile Apps" },
@@ -167,6 +175,7 @@ export const employeesService = {
 
     employees.push(newEmployee);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(employees));
+    triggerStorageChange(STORAGE_KEY, employees);
 
     return newEmployee;
   },
@@ -190,6 +199,7 @@ export const employeesService = {
 
     employees[index] = { ...employees[index], ...data };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(employees));
+    triggerStorageChange(STORAGE_KEY, employees);
 
     return employees[index];
   },
@@ -203,6 +213,7 @@ export const employeesService = {
     }
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+    triggerStorageChange(STORAGE_KEY, filtered);
     return true;
   },
 };

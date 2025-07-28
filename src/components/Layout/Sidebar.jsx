@@ -1,12 +1,45 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import {
+  employeesService,
+  divisionsService,
+} from "../../services/employeeService";
+import { useLocalStorageListener } from "../../hooks/useLocalStorageListener";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
+  const [employeeCount, setEmployeeCount] = useState(0);
+  const [divisionCount, setDivisionCount] = useState(0);
+
+  // Listen to localStorage changes
+  const employeesData = useLocalStorageListener("employees_data");
+  const divisionsData = useLocalStorageListener("divisions_data");
+
+  // Update counts when data changes
+  useEffect(() => {
+    const updateCounts = () => {
+      try {
+        // Fetch employees
+        const employeesResponse = employeesService.getAll();
+        setEmployeeCount(employeesResponse.data?.length || 0);
+
+        // Fetch divisions
+        const divisionsResponse = divisionsService.getAll();
+        setDivisionCount(divisionsResponse.length || 0);
+      } catch (error) {
+        console.error("Error fetching counts:", error);
+        // Set default values if API fails
+        setEmployeeCount(0);
+        setDivisionCount(0);
+      }
+    };
+
+    updateCounts();
+  }, [employeesData, divisionsData]); // Re-run when localStorage data changes
 
   // Add touch handlers for swipe gestures
   const handleTouchStart = (e) => {
@@ -328,30 +361,88 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Footer */}
           <div
-            className="p-4 border-t border-gray-200/50 dark:border-gray-700/50"
+            className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 space-y-3"
             style={{
               animation: isOpen
                 ? "slideInFromLeft 0.6s ease-out 0.8s both"
                 : "none",
             }}
           >
-            <div className="p-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-600 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
-              <div className="flex items-center text-xs text-gray-600 dark:text-gray-400">
-                <svg
-                  className="w-4 h-4 mr-2 text-green-500 animate-pulse"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <span>System Online</span>
+            {/* System Status */}
+            <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-emerald-50/80 to-green-50/80 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-200/50 dark:border-emerald-800/50">
+              <div className="flex items-center space-x-2">
+                <div className="relative">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  <div className="absolute inset-0 w-2 h-2 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
+                </div>
+                <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                  System Active
+                </span>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Version 1.0.0
+              <span className="text-xs text-emerald-600 dark:text-emerald-500 font-mono">
+                v2.1.0
+              </span>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-2 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200/50 dark:border-blue-800/50">
+                <div className="flex items-center space-x-1.5">
+                  <svg
+                    className="w-3 h-3 text-blue-600 dark:text-blue-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                  <div>
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-300">
+                      Employees
+                    </p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-mono">
+                      {employeeCount}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-2 rounded-lg bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200/50 dark:border-purple-800/50">
+                <div className="flex items-center space-x-1.5">
+                  <svg
+                    className="w-3 h-3 text-purple-600 dark:text-purple-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                  <div>
+                    <p className="text-xs font-bold text-purple-700 dark:text-purple-300">
+                      Divisions
+                    </p>
+                    <p className="text-xs text-purple-600 dark:text-purple-400 font-mono">
+                      {divisionCount}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Company Info */}
+            <div className="text-center pt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                © 2025 EmpManage
               </p>
             </div>
           </div>
