@@ -11,8 +11,11 @@ const Employees = () => {
   const [divisions, setDivisions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState(null);
+  const [deletingEmployee, setDeletingEmployee] = useState(null);
   const [notification, setNotification] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -152,14 +155,36 @@ const Employees = () => {
   };
 
   const handleDelete = (employee) => {
-    if (confirm(`Are you sure you want to delete ${employee.name}?`)) {
-      try {
-        employeesService.delete(employee.id);
-        loadEmployees();
-      } catch (error) {
-        alert("Error deleting employee: " + error.message);
-      }
+    setDeletingEmployee(employee);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingEmployee) return;
+
+    setDeleteLoading(true);
+    try {
+      // Simulate API loading delay for better UX
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      employeesService.delete(deletingEmployee.id);
+      setShowDeleteModal(false);
+      setDeletingEmployee(null);
+      loadEmployees();
+      showNotification(
+        "success",
+        `${deletingEmployee.name} has been deleted successfully!`
+      );
+    } catch (error) {
+      showNotification("error", "Error deleting employee: " + error.message);
+    } finally {
+      setDeleteLoading(false);
     }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setDeletingEmployee(null);
   };
 
   const resetForm = () => {
@@ -840,6 +865,92 @@ const Employees = () => {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
+          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-md w-full shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in">
+            <div className="p-6">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mr-4">
+                  <svg
+                    className="w-6 h-6 text-red-600 dark:text-red-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    Delete Employee
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    This action cannot be undone
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <p className="text-gray-700 dark:text-gray-300">
+                  Are you sure you want to delete{" "}
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    {deletingEmployee?.name}
+                  </span>
+                  ? This will permanently remove the employee from your records.
+                </p>
+              </div>
+
+              <div className="flex space-x-3">
+                <button
+                  type="button"
+                  onClick={cancelDelete}
+                  disabled={deleteLoading}
+                  className="flex-1 flex items-center justify-center px-4 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmDelete}
+                  disabled={deleteLoading}
+                  className="flex-1 flex items-center justify-center px-4 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:transform-none disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800"
+                >
+                  {deleteLoading ? (
+                    <>
+                      <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-4 h-4 mr-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                      Delete Employee
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
