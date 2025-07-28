@@ -636,75 +636,43 @@ const Employees = () => {
         {/* Pagination */}
         {pagination.last_page > 1 && (
           <div className="mt-6 sm:mt-8 lg:mt-10 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-              <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 order-2 sm:order-1">
-                <span>
-                  Page {pagination.current_page} of {pagination.last_page}
-                </span>
-              </div>
+            {/* Mobile Layout */}
+            <div className="block sm:hidden">
+              <div className="flex flex-col space-y-4">
+                {/* Page Info */}
+                <div className="flex justify-center">
+                  <span className="text-xs text-gray-600 dark:text-gray-400 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                    Page {pagination.current_page} of {pagination.last_page}
+                  </span>
+                </div>
 
-              <div className="flex flex-col xs:flex-row items-center gap-3 xs:gap-2 order-1 sm:order-2">
-                <button
-                  onClick={() => handlePageChange(pagination.current_page - 1)}
-                  disabled={pagination.current_page === 1}
-                  className="flex items-center justify-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[80px] sm:min-w-[100px]"
-                >
-                  <svg
-                    className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                {/* Navigation Controls */}
+                <div className="flex items-center justify-center space-x-2">
+                  <button
+                    onClick={() =>
+                      handlePageChange(pagination.current_page - 1)
+                    }
+                    disabled={pagination.current_page === 1}
+                    className="flex items-center justify-center px-4 py-2 text-xs font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[70px]"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                  <span className="hidden xs:inline">Previous</span>
-                  <span className="xs:hidden">Prev</span>
-                </button>
+                    <svg
+                      className="w-3 h-3 mr-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                    Prev
+                  </button>
 
-                <div className="flex items-center space-x-1">
-                  {/* Mobile: Show 3 pages, Desktop: Show 5 pages */}
-                  <div className="hidden sm:flex items-center space-x-1">
-                    {Array.from(
-                      { length: Math.min(5, pagination.last_page) },
-                      (_, i) => {
-                        let page;
-                        if (pagination.last_page <= 5) {
-                          page = i + 1;
-                        } else if (pagination.current_page <= 3) {
-                          page = i + 1;
-                        } else if (
-                          pagination.current_page >=
-                          pagination.last_page - 2
-                        ) {
-                          page = pagination.last_page - 4 + i;
-                        } else {
-                          page = pagination.current_page - 2 + i;
-                        }
-
-                        return (
-                          <button
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            className={`px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 min-w-[32px] sm:min-w-[40px] ${
-                              page === pagination.current_page
-                                ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
-                                : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
-                            }`}
-                          >
-                            {page}
-                          </button>
-                        );
-                      }
-                    )}
-                  </div>
-
-                  {/* Mobile pagination - show fewer pages */}
-                  <div className="flex sm:hidden items-center space-x-1">
+                  {/* Mobile page numbers - simplified */}
+                  <div className="flex items-center space-x-1">
                     {Array.from(
                       { length: Math.min(3, pagination.last_page) },
                       (_, i) => {
@@ -726,10 +694,10 @@ const Employees = () => {
                           <button
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            className={`px-2.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 min-w-[32px] ${
+                            className={`px-3 py-2 text-xs font-medium rounded-lg transition-all duration-200 min-w-[36px] ${
                               page === pagination.current_page
-                                ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
-                                : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
+                                ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600"
                             }`}
                           >
                             {page}
@@ -738,17 +706,106 @@ const Employees = () => {
                       }
                     )}
                   </div>
+
+                  <button
+                    onClick={() =>
+                      handlePageChange(pagination.current_page + 1)
+                    }
+                    disabled={pagination.current_page === pagination.last_page}
+                    className="flex items-center justify-center px-4 py-2 text-xs font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[70px]"
+                  >
+                    Next
+                    <svg
+                      className="w-3 h-3 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center justify-between">
+              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                <span>
+                  Page {pagination.current_page} of {pagination.last_page}
+                </span>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => handlePageChange(pagination.current_page - 1)}
+                  disabled={pagination.current_page === 1}
+                  className="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[100px]"
+                >
+                  <svg
+                    className="w-4 h-4 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                  Previous
+                </button>
+
+                <div className="flex items-center space-x-1">
+                  {Array.from(
+                    { length: Math.min(5, pagination.last_page) },
+                    (_, i) => {
+                      let page;
+                      if (pagination.last_page <= 5) {
+                        page = i + 1;
+                      } else if (pagination.current_page <= 3) {
+                        page = i + 1;
+                      } else if (
+                        pagination.current_page >=
+                        pagination.last_page - 2
+                      ) {
+                        page = pagination.last_page - 4 + i;
+                      } else {
+                        page = pagination.current_page - 2 + i;
+                      }
+
+                      return (
+                        <button
+                          key={page}
+                          onClick={() => handlePageChange(page)}
+                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 min-w-[40px] ${
+                            page === pagination.current_page
+                              ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
+                              : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      );
+                    }
+                  )}
                 </div>
 
                 <button
                   onClick={() => handlePageChange(pagination.current_page + 1)}
                   disabled={pagination.current_page === pagination.last_page}
-                  className="flex items-center justify-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[80px] sm:min-w-[100px]"
+                  className="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[100px]"
                 >
-                  <span className="hidden xs:inline">Next</span>
-                  <span className="xs:hidden">Next</span>
+                  Next
                   <svg
-                    className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2"
+                    className="w-4 h-4 ml-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
