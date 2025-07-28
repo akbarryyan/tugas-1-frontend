@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTheme } from "../../contexts/ThemeContext";
 
-const Navbar = () => {
+const Navbar = ({ onMenuClick }) => {
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [themeDropdownOpen, setThemeDropdownOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
   const { theme, changeTheme, themes, isDark } = useTheme();
 
@@ -73,13 +72,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+    <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden btn-ghost p-2"
-        >
+        <button onClick={onMenuClick} className="lg:hidden btn-ghost p-2">
           <svg
             className="w-6 h-6"
             fill="none"
@@ -241,13 +237,12 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Overlay */}
-      {(userDropdownOpen || themeDropdownOpen || mobileMenuOpen) && (
+      {(userDropdownOpen || themeDropdownOpen) && (
         <div
           className="fixed inset-0 z-40"
           onClick={() => {
             setUserDropdownOpen(false);
             setThemeDropdownOpen(false);
-            setMobileMenuOpen(false);
           }}
         />
       )}

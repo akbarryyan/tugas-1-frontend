@@ -32,7 +32,7 @@ const PublicRoute = ({ children }) => {
     return <Loading />;
   }
 
-  return !isAuthenticated ? children : <Navigate to="/" replace />;
+  return !isAuthenticated ? children : <Navigate to="/dashboard" replace />;
 };
 
 function AppRoutes() {
@@ -54,11 +54,12 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Dashboard />} />
+        <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="employees" element={<Employees />} />
         <Route path="profile" element={<Profile />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
 }
