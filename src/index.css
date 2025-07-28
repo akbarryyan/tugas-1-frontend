@@ -37,42 +37,62 @@ html.dark .min-h-screen {
 }
 
 /* Stronger override to force theme changes */
-html:not(.dark) div[class*="bg-"],
+html:not(.dark) div[class*="bg-"]:not(.absolute),
 html:not(.dark) div[class*="min-h-screen"] {
   background-color: #ffffff !important;
   background-image: none !important;
 }
 
-html.dark div[class*="bg-"][class*="gray"],
+html.dark div[class*="bg-"][class*="gray"]:not(.absolute),
 html.dark div[class*="min-h-screen"] {
   background-color: #111827 !important;
   background-image: none !important;
 }
 
-/* Override any potential Tailwind interference */
-html:not(.dark) [class*="bg-gray-50"],
-html:not(.dark) [class*="bg-white"] {
-  background-color: #ffffff !important;
-}
-
-html.dark [class*="bg-gray-900"],
-html.dark [class*="bg-gray-800"] {
-  background-color: #111827 !important;
-}
-
-/* Force dropdown styling without affecting other content */
-nav div[class*="absolute"][class*="bg-white"] {
+/* Force all dropdown menus to always be white */
+.absolute[class*="bg-white"],
+[class*="absolute"][class*="bg-white"],
+div.absolute[class*="shadow"],
+nav div.absolute {
   background-color: #ffffff !important;
   color: #111827 !important;
   border-color: #e5e7eb !important;
 }
 
-nav div[class*="absolute"][class*="bg-white"] button {
+/* Force dropdown buttons and content to be readable */
+.absolute[class*="bg-white"] button,
+[class*="absolute"][class*="bg-white"] button,
+div.absolute[class*="shadow"] button,
+nav div.absolute button {
+  color: #111827 !important;
+  background-color: transparent !important;
+}
+
+.absolute[class*="bg-white"] button:hover,
+[class*="absolute"][class*="bg-white"] button:hover,
+div.absolute[class*="shadow"] button:hover,
+nav div.absolute button:hover {
+  background-color: #f9fafb !important;
   color: #111827 !important;
 }
 
-nav div[class*="absolute"][class*="bg-white"] button:hover {
-  background-color: #f9fafb !important;
+/* Override any potential Tailwind interference - exclude dropdowns */
+html:not(.dark) [class*="bg-gray-50"]:not(.absolute),
+html:not(.dark) [class*="bg-white"]:not(.absolute) {
+  background-color: #ffffff !important;
+}
+
+html.dark [class*="bg-gray-900"]:not(.absolute),
+html.dark [class*="bg-gray-800"]:not(.absolute) {
+  background-color: #111827 !important;
+}
+
+/* Ensure dropdown always white - highest priority */
+html.dark .absolute[class*="bg-white"],
+html.dark [class*="absolute"][class*="bg-white"],
+html.dark div.absolute[class*="shadow"],
+html.dark nav div.absolute {
+  background-color: #ffffff !important;
   color: #111827 !important;
 }
 
