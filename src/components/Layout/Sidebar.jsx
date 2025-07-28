@@ -153,12 +153,12 @@ const Sidebar = ({ isOpen, onClose }) => {
             <div className="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200/50 dark:border-indigo-800/50">
               <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
                 <span className="text-white font-semibold text-sm">
-                  {user?.fullName?.charAt(0) || "A"}
+                  {user?.name?.charAt(0) || "A"}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-                  {user?.fullName || "Administrator"}
+                  {user?.name || "Administrator"}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                   {user?.email || "admin@company.com"}
