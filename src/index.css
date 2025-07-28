@@ -1,68 +1,41 @@
 @import "tailwindcss";
 
-/* Target only main layout elements, not all content */
-html,
-body,
-#root {
-  transition: background-color 0.2s ease, color 0.2s ease !important;
+/* Force theme switching to work properly */
+html:not(.dark) {
+  color-scheme: light;
 }
 
-/* Light theme - only target main layout */
-html:not(.dark),
+html.dark {
+  color-scheme: dark;
+}
+
+/* Explicit background overrides for main elements */
 html:not(.dark) body,
-html:not(.dark) #root {
-  background-color: #ffffff !important;
-  background-image: none !important;
-  background: #ffffff !important;
+html:not(.dark) #root,
+html:not(.dark) .min-h-screen,
+html:not(.dark) [class*="bg-white"],
+html:not(.dark) [class*="bg-gray-50"] {
+  background-color: white !important;
+  color: #111827 !important;
 }
 
-/* Dark theme - only target main layout */
-html.dark,
 html.dark body,
-html.dark #root {
+html.dark #root,
+html.dark .min-h-screen,
+html.dark [class*="bg-white"],
+html.dark [class*="bg-gray-50"] {
   background-color: #111827 !important;
-  background-image: none !important;
-  background: #111827 !important;
+  color: white !important;
 }
 
-/* Specific override for App container */
-html:not(.dark) .min-h-screen {
-  background-color: #ffffff !important;
-  background-image: none !important;
-}
-
-html.dark .min-h-screen {
-  background-color: #111827 !important;
-  background-image: none !important;
-}
-
-/* Stronger override to force theme changes */
-html:not(.dark) div[class*="bg-"]:not(.absolute),
-html:not(.dark) div[class*="min-h-screen"] {
-  background-color: #ffffff !important;
-  background-image: none !important;
-}
-
-html.dark div[class*="bg-"][class*="gray"]:not(.absolute),
-html.dark div[class*="min-h-screen"] {
-  background-color: #111827 !important;
-  background-image: none !important;
-}
-
-/* Let dropdown follow theme - removed forced white background */
-
-/* Override any potential Tailwind interference - exclude dropdowns */
-html:not(.dark) [class*="bg-gray-50"]:not(.absolute),
-html:not(.dark) [class*="bg-white"]:not(.absolute) {
-  background-color: #ffffff !important;
-}
-
-html.dark [class*="bg-gray-900"]:not(.absolute),
-html.dark [class*="bg-gray-800"]:not(.absolute) {
+html.dark [class*="dark:bg-gray-900"] {
   background-color: #111827 !important;
 }
 
-/* Let dropdown follow theme - removed forced white background */
+/* Basic theme transitions only */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

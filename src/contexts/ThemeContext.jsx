@@ -23,6 +23,7 @@ export const ThemeProvider = ({ children }) => {
       console.log("Updating theme:", theme);
       const html = document.documentElement;
 
+      // Simple theme switching - let Tailwind handle styling
       if (theme === "system") {
         const systemDark = window.matchMedia(
           "(prefers-color-scheme: dark)"
@@ -30,59 +31,19 @@ export const ThemeProvider = ({ children }) => {
         console.log("System dark mode:", systemDark);
         setIsDark(systemDark);
 
-        html.classList.remove("dark");
         if (systemDark) {
           html.classList.add("dark");
+        } else {
+          html.classList.remove("dark");
         }
       } else if (theme === "dark") {
         console.log("Setting dark mode: true");
         setIsDark(true);
-        html.classList.remove("dark");
         html.classList.add("dark");
       } else if (theme === "light") {
         console.log("Setting light mode: true");
         setIsDark(false);
         html.classList.remove("dark");
-      }
-
-      // Force browser repaint
-      const body = document.body;
-      const root = document.getElementById("root");
-      const appContainer = document.querySelector(".min-h-screen");
-
-      html.style.display = "none";
-      html.offsetHeight; // trigger reflow
-      html.style.display = "";
-
-      // Backup JavaScript styling to ensure theme changes
-      if (
-        theme === "light" ||
-        (theme === "system" &&
-          !window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        // Force light styling
-        html.style.setProperty("background-color", "#ffffff", "important");
-        body.style.setProperty("background-color", "#ffffff", "important");
-        if (root)
-          root.style.setProperty("background-color", "#ffffff", "important");
-        if (appContainer)
-          appContainer.style.setProperty(
-            "background-color",
-            "#ffffff",
-            "important"
-          );
-      } else {
-        // Force dark styling
-        html.style.setProperty("background-color", "#111827", "important");
-        body.style.setProperty("background-color", "#111827", "important");
-        if (root)
-          root.style.setProperty("background-color", "#111827", "important");
-        if (appContainer)
-          appContainer.style.setProperty(
-            "background-color",
-            "#111827",
-            "important"
-          );
       }
 
       // Debug info
@@ -93,7 +54,7 @@ export const ThemeProvider = ({ children }) => {
       );
       console.log(
         "Body computed background:",
-        window.getComputedStyle(body).backgroundColor
+        window.getComputedStyle(document.body).backgroundColor
       );
       console.log(
         "HTML computed background:",
