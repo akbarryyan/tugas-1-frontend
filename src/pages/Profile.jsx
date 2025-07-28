@@ -12,6 +12,15 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [notification, setNotification] = useState(null);
+
+  // Show notification function
+  const showNotification = (type, message) => {
+    setNotification({ type, message });
+    setTimeout(() => {
+      setNotification(null);
+    }, 4000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,11 +37,17 @@ const Profile = () => {
         throw new Error("Email is required");
       }
 
+      // Simulate API loading delay for better UX
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // Update profile
       updateProfile(formData);
       setSuccess("Profile updated successfully!");
+      showNotification("success", "Profile updated successfully!");
     } catch (err) {
-      setError(err.message || "Failed to update profile");
+      const errorMessage = err.message || "Failed to update profile";
+      setError(errorMessage);
+      showNotification("error", errorMessage);
     } finally {
       setLoading(false);
     }
@@ -264,15 +279,30 @@ const Profile = () => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:transform-none disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-800"
                   >
                     {loading ? (
-                      <div className="flex items-center">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      <>
+                        <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                         Updating...
-                      </div>
+                      </>
                     ) : (
-                      "Update Profile"
+                      <>
+                        <svg
+                          className="w-4 h-4 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                        Update Profile
+                      </>
                     )}
                   </button>
                 </div>
@@ -316,6 +346,70 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
+      {/* Custom Notification */}
+      {notification && (
+        <div className="fixed top-4 right-4 z-[60] animate-fade-in">
+          <div
+            className={`max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4 ${
+              notification.type === "success"
+                ? "bg-green-50 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200"
+                : "bg-red-50 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200"
+            }`}
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                {notification.type === "success" ? (
+                  <svg
+                    className="w-5 h-5 text-green-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium">{notification.message}</p>
+              </div>
+              <div className="ml-4 flex-shrink-0">
+                <button
+                  onClick={() => setNotification(null)}
+                  className="inline-flex text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
