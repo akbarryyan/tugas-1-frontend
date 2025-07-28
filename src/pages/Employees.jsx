@@ -1036,8 +1036,8 @@ const Employees = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <p className="text-gray-700 dark:text-gray-300">
+              <div className="mb-6 sm:mb-8">
+                <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
                   Are you sure you want to delete{" "}
                   <span className="font-semibold text-gray-900 dark:text-white">
                     {deletingEmployee?.name}
@@ -1046,30 +1046,44 @@ const Employees = () => {
                 </p>
               </div>
 
-              <div className="flex space-x-3">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={cancelDelete}
                   disabled={deleteLoading}
-                  className="flex-1 flex items-center justify-center px-4 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                  className="flex-1 flex items-center justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 min-h-[48px] touch-manipulation"
                 >
+                  <svg
+                    className="w-4 h-4 mr-2 sm:mr-1.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={confirmDelete}
                   disabled={deleteLoading}
-                  className="flex-1 flex items-center justify-center px-4 py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:transform-none disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800"
+                  className="flex-1 flex items-center justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-red-600 hover:bg-red-700 disabled:bg-red-400 text-white font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:transform-none disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-200 dark:focus:ring-red-800 min-h-[48px] touch-manipulation"
                 >
                   {deleteLoading ? (
                     <>
                       <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      Deleting...
+                      <span className="hidden xs:inline">Deleting...</span>
+                      <span className="xs:hidden">Delete...</span>
                     </>
                   ) : (
                     <>
                       <svg
-                        className="w-4 h-4 mr-2"
+                        className="w-4 h-4 mr-2 sm:mr-1.5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -1081,7 +1095,8 @@ const Employees = () => {
                           d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                         />
                       </svg>
-                      Delete Employee
+                      <span className="hidden xs:inline">Delete Employee</span>
+                      <span className="xs:hidden">Delete</span>
                     </>
                   )}
                 </button>
