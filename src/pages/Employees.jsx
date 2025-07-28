@@ -638,7 +638,7 @@ const Employees = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in">
+          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in">
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
@@ -672,70 +672,72 @@ const Employees = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="input-field"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      className="input-field"
+                      value={formData.name}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    className="input-field"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                  />
-                </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      className="input-field"
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Division *
-                  </label>
-                  <select
-                    required
-                    className="input-field"
-                    value={formData.division}
-                    onChange={(e) =>
-                      setFormData({ ...formData, division: e.target.value })
-                    }
-                  >
-                    <option value="">Select Division</option>
-                    {divisions.map((division) => (
-                      <option key={division.id} value={division.id}>
-                        {division.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Division *
+                    </label>
+                    <select
+                      required
+                      className="input-field"
+                      value={formData.division}
+                      onChange={(e) =>
+                        setFormData({ ...formData, division: e.target.value })
+                      }
+                    >
+                      <option value="">Select Division</option>
+                      {divisions.map((division) => (
+                        <option key={division.id} value={division.id}>
+                          {division.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Position *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="input-field"
-                    value={formData.position}
-                    onChange={(e) =>
-                      setFormData({ ...formData, position: e.target.value })
-                    }
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Position *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      className="input-field"
+                      value={formData.position}
+                      onChange={(e) =>
+                        setFormData({ ...formData, position: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
 
                 <div>
