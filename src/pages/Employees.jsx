@@ -668,25 +668,6 @@ const Employees = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
           <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in relative">
-            {/* Loading Overlay */}
-            {submitLoading && (
-              <div className="absolute inset-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl z-10 flex items-center justify-center">
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                  <div className="text-center">
-                    <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {editingEmployee
-                        ? "Updating Employee..."
-                        : "Adding Employee..."}
-                    </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Please wait a moment
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
