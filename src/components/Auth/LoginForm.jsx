@@ -229,37 +229,148 @@ const LoginForm = () => {
               )}
             </button>
 
-            <div className="mt-6 p-6 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
-              <div className="flex items-center mb-3">
-                <svg
-                  className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300">
-                  Demo Credentials
-                </p>
-              </div>
-              <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <div className="flex items-center justify-between p-2 bg-white dark:bg-gray-800 rounded-lg">
-                  <span>Username:</span>
-                  <code className="font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-indigo-600 dark:text-indigo-400 font-semibold">
-                    admin
-                  </code>
+            <div className="mt-8 p-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 dark:from-indigo-900/30 dark:via-purple-900/30 dark:to-blue-900/30 rounded-2xl border-2 border-indigo-200/50 dark:border-indigo-700/50 shadow-xl backdrop-blur-sm">
+              <div className="flex items-center mb-4">
+                <div className="relative">
+                  <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <svg
+                      className="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 animate-pulse"></div>
                 </div>
-                <div className="flex items-center justify-between p-2 bg-white dark:bg-gray-800 rounded-lg">
-                  <span>Password:</span>
-                  <code className="font-mono bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-indigo-600 dark:text-indigo-400 font-semibold">
-                    pastibisa
-                  </code>
+                <div className="ml-3">
+                  <p className="text-base font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 dark:from-indigo-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+                    Demo Credentials
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    Use these credentials to test the application
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-indigo-50/80 dark:from-gray-800/80 dark:to-indigo-900/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative flex items-center justify-between p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-indigo-200/50 dark:border-indigo-700/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-md">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                      </div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Username:
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <code className="font-mono bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-3 py-2 rounded-lg font-bold text-sm shadow-md hover:shadow-lg transition-shadow duration-200">
+                        admin
+                      </code>
+                      <button
+                        type="button"
+                        className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+                        onClick={() => navigator.clipboard?.writeText("admin")}
+                        title="Copy username"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="group relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-purple-50/80 dark:from-gray-800/80 dark:to-purple-900/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative flex items-center justify-between p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-purple-200/50 dark:border-purple-700/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                          />
+                        </svg>
+                      </div>
+                      <span className="font-semibold text-gray-700 dark:text-gray-300">
+                        Password:
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <code className="font-mono bg-gradient-to-r from-purple-500 to-pink-600 text-white px-3 py-2 rounded-lg font-bold text-sm shadow-md hover:shadow-lg transition-shadow duration-200">
+                        pastibisa
+                      </code>
+                      <button
+                        type="button"
+                        className="p-2 text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
+                        onClick={() =>
+                          navigator.clipboard?.writeText("pastibisa")
+                        }
+                        title="Copy password"
+                      >
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-indigo-200/50 dark:border-indigo-700/50">
+                <div className="flex items-center justify-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                  <span>Ready for testing</span>
+                  <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                  <span>Click to copy credentials</span>
                 </div>
               </div>
             </div>
