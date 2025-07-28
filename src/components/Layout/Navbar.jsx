@@ -113,15 +113,15 @@ const Navbar = ({ onMenuClick }) => {
 
             {themeDropdownOpen && (
               <>
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
                   {themes.map((themeOption) => (
                     <button
                       key={themeOption.value}
                       onClick={() => handleThemeChange(themeOption.value)}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center space-x-2 first:rounded-t-lg last:rounded-b-lg transition-colors duration-150 ${
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center space-x-2 first:rounded-t-lg last:rounded-b-lg transition-colors duration-150 ${
                         theme === themeOption.value
-                          ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                          : "text-gray-700 dark:text-gray-300"
+                          ? "text-indigo-600 bg-indigo-50"
+                          : "text-gray-700"
                       }`}
                     >
                       {getThemeIcon(themeOption.value)}
@@ -150,7 +150,7 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 p-2 transition-colors duration-200"
+              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-50 p-2 transition-colors duration-200"
             >
               <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-medium text-sm">
@@ -162,12 +162,8 @@ const Navbar = ({ onMenuClick }) => {
                 </span>
               </div>
               <div className="hidden md:block text-left">
-                <p className="text-gray-900 dark:text-white font-medium">
-                  {user?.name}
-                </p>
-                <p className="text-gray-500 dark:text-gray-400 text-xs">
-                  {user?.email}
-                </p>
+                <p className="text-gray-900 font-medium">{user?.name}</p>
+                <p className="text-gray-500 text-xs">{user?.email}</p>
               </div>
               <svg
                 className="w-4 h-4 text-gray-400"
@@ -183,20 +179,18 @@ const Navbar = ({ onMenuClick }) => {
             </button>
 
             {userDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
-                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+              <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                <div className="px-4 py-3 border-b border-gray-200">
+                  <p className="text-sm font-medium text-gray-900">
                     {user?.name}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {user?.email}
-                  </p>
+                  <p className="text-sm text-gray-500">{user?.email}</p>
                 </div>
 
                 <div className="py-1">
                   <a
                     href="/profile"
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     <svg
                       className="w-4 h-4 mr-3"
@@ -216,7 +210,7 @@ const Navbar = ({ onMenuClick }) => {
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                   >
                     <svg
                       className="w-4 h-4 mr-3"

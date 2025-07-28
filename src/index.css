@@ -1,56 +1,79 @@
 @import "tailwindcss";
 
-/* CRITICAL: Override all possible background styling with maximum specificity */
+/* Target only main layout elements, not all content */
 html,
 body,
-#root,
-.min-h-screen,
-div[class*="min-h-screen"] {
+#root {
   transition: background-color 0.2s ease, color 0.2s ease !important;
 }
 
-/* Force Light theme with maximum CSS specificity */
+/* Light theme - only target main layout */
 html:not(.dark),
 html:not(.dark) body,
-html:not(.dark) #root,
-html:not(.dark) .min-h-screen,
-html:not(.dark) div[class*="min-h-screen"],
-html:not(.dark) div[class*="bg-"],
-body:not(.dark),
-#root:not(.dark) {
+html:not(.dark) #root {
   background-color: #ffffff !important;
   background-image: none !important;
   background: #ffffff !important;
-  color: #111827 !important;
 }
 
-/* Force Dark theme with maximum CSS specificity */
+/* Dark theme - only target main layout */
 html.dark,
 html.dark body,
-html.dark #root,
-html.dark .min-h-screen,
-html.dark div[class*="min-h-screen"],
-html.dark div[class*="bg-"],
-body.dark,
-#root.dark {
+html.dark #root {
   background-color: #111827 !important;
   background-image: none !important;
   background: #111827 !important;
-  color: #f3f4f6 !important;
 }
 
-/* Override any Tailwind background classes */
-html:not(.dark) *[class*="bg-gray"],
-html:not(.dark) *[class*="bg-indigo"],
-html:not(.dark) *[class*="bg-purple"] {
-  background-color: inherit !important;
+/* Specific override for App container */
+html:not(.dark) .min-h-screen {
+  background-color: #ffffff !important;
+  background-image: none !important;
 }
 
-html.dark
-  *[class*="bg-gray"]:not([class*="bg-gray-800"]):not([class*="bg-gray-900"]),
-html.dark *[class*="bg-indigo"],
-html.dark *[class*="bg-purple"] {
-  background-color: inherit !important;
+html.dark .min-h-screen {
+  background-color: #111827 !important;
+  background-image: none !important;
+}
+
+/* Stronger override to force theme changes */
+html:not(.dark) div[class*="bg-"],
+html:not(.dark) div[class*="min-h-screen"] {
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+html.dark div[class*="bg-"][class*="gray"],
+html.dark div[class*="min-h-screen"] {
+  background-color: #111827 !important;
+  background-image: none !important;
+}
+
+/* Override any potential Tailwind interference */
+html:not(.dark) [class*="bg-gray-50"],
+html:not(.dark) [class*="bg-white"] {
+  background-color: #ffffff !important;
+}
+
+html.dark [class*="bg-gray-900"],
+html.dark [class*="bg-gray-800"] {
+  background-color: #111827 !important;
+}
+
+/* Force dropdown styling without affecting other content */
+nav div[class*="absolute"][class*="bg-white"] {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #e5e7eb !important;
+}
+
+nav div[class*="absolute"][class*="bg-white"] button {
+  color: #111827 !important;
+}
+
+nav div[class*="absolute"][class*="bg-white"] button:hover {
+  background-color: #f9fafb !important;
+  color: #111827 !important;
 }
 
 /* Custom scrollbar */

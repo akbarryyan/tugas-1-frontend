@@ -47,9 +47,43 @@ export const ThemeProvider = ({ children }) => {
 
       // Force browser repaint
       const body = document.body;
+      const root = document.getElementById("root");
+      const appContainer = document.querySelector(".min-h-screen");
+
       html.style.display = "none";
       html.offsetHeight; // trigger reflow
       html.style.display = "";
+
+      // Backup JavaScript styling to ensure theme changes
+      if (
+        theme === "light" ||
+        (theme === "system" &&
+          !window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        // Force light styling
+        html.style.setProperty("background-color", "#ffffff", "important");
+        body.style.setProperty("background-color", "#ffffff", "important");
+        if (root)
+          root.style.setProperty("background-color", "#ffffff", "important");
+        if (appContainer)
+          appContainer.style.setProperty(
+            "background-color",
+            "#ffffff",
+            "important"
+          );
+      } else {
+        // Force dark styling
+        html.style.setProperty("background-color", "#111827", "important");
+        body.style.setProperty("background-color", "#111827", "important");
+        if (root)
+          root.style.setProperty("background-color", "#111827", "important");
+        if (appContainer)
+          appContainer.style.setProperty(
+            "background-color",
+            "#111827",
+            "important"
+          );
+      }
 
       // Debug info
       console.log("HTML classes after update:", html.className);
