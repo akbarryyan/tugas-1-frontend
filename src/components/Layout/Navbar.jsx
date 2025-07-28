@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTheme } from "../../contexts/ThemeContext";
 
@@ -212,9 +213,10 @@ const Navbar = ({ onMenuClick }) => {
                 </div>
 
                 <div className="py-1">
-                  <a
-                    href="/profile"
+                  <Link
+                    to="/profile"
                     className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    onClick={() => setUserDropdownOpen(false)}
                   >
                     <svg
                       className="w-4 h-4 mr-3"
@@ -230,7 +232,7 @@ const Navbar = ({ onMenuClick }) => {
                       />
                     </svg>
                     Profile Settings
-                  </a>
+                  </Link>
 
                   <button
                     onClick={handleLogout}
