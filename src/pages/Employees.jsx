@@ -346,12 +346,12 @@ const Employees = () => {
       </div>
 
       {/* Results */}
-      <div className="card p-8 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+      <div className="card p-4 sm:p-6 lg:p-8 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+          <div className="flex items-center space-x-3 sm:space-x-4">
+            <div className="p-2.5 sm:p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
               <svg
-                className="w-6 h-6 text-white"
+                className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -364,11 +364,11 @@ const Employees = () => {
                 />
               </svg>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="min-w-0 flex-1">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                 Employee Directory
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-0.5">
                 Showing {pagination.from || 0} to {pagination.to || 0} of{" "}
                 <span className="font-semibold text-indigo-600 dark:text-indigo-400">
                   {pagination.total}
@@ -379,8 +379,8 @@ const Employees = () => {
           </div>
 
           {employees.length > 0 && (
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center space-x-1 px-3 py-1.5 bg-green-100 dark:bg-green-900/20 rounded-lg">
+            <div className="flex items-center justify-center sm:justify-end">
+              <div className="flex items-center space-x-1 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-green-100 dark:bg-green-900/20 rounded-lg">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-xs font-medium text-green-700 dark:text-green-400">
                   Live Data
@@ -487,11 +487,11 @@ const Employees = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {employees.map((employee, index) => (
               <div
                 key={employee.id}
-                className="group card p-6 card-hover relative overflow-hidden border-2 border-transparent hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-300 animate-slide-in-left"
+                className="group card p-4 sm:p-6 card-hover relative overflow-hidden border-2 border-transparent hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-300 animate-slide-in-left"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Background Pattern */}
@@ -562,13 +562,13 @@ const Employees = () => {
                     </div>
                   </div>
 
-                  <div className="flex space-x-2">
+                  <div className="flex flex-col xs:flex-row gap-2 xs:gap-2">
                     <button
                       onClick={() => handleView(employee)}
-                      className="flex-1 flex items-center justify-center px-3 py-2 bg-gradient-to-r from-gray-50 to-slate-50 hover:from-gray-100 hover:to-slate-100 dark:from-gray-900/20 dark:to-slate-900/20 dark:hover:from-gray-900/30 dark:hover:to-slate-900/30 text-gray-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 font-semibold text-sm rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-900/50"
+                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 bg-gradient-to-r from-gray-50 to-slate-50 hover:from-gray-100 hover:to-slate-100 dark:from-gray-900/20 dark:to-slate-900/20 dark:hover:from-gray-900/30 dark:hover:to-slate-900/30 text-gray-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 font-semibold text-xs sm:text-sm rounded-lg border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-900/50"
                     >
                       <svg
-                        className="w-4 h-4 mr-1"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -590,10 +590,10 @@ const Employees = () => {
                     </button>
                     <button
                       onClick={() => handleEdit(employee)}
-                      className="flex-1 flex items-center justify-center px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 dark:hover:from-blue-900/30 dark:hover:to-indigo-900/30 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 font-semibold text-sm rounded-lg border border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/50"
+                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 dark:hover:from-blue-900/30 dark:hover:to-indigo-900/30 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 font-semibold text-xs sm:text-sm rounded-lg border border-blue-200 dark:border-blue-800 hover:border-blue-300 dark:hover:border-blue-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/50"
                     >
                       <svg
-                        className="w-4 h-4 mr-1"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -609,10 +609,10 @@ const Employees = () => {
                     </button>
                     <button
                       onClick={() => handleDelete(employee)}
-                      className="flex-1 flex items-center justify-center px-3 py-2 bg-gradient-to-r from-red-50 to-rose-50 hover:from-red-100 hover:to-rose-100 dark:from-red-900/20 dark:to-rose-900/20 dark:hover:from-red-900/30 dark:hover:to-rose-900/30 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-200 font-semibold text-sm rounded-lg border border-red-200 dark:border-red-800 hover:border-red-300 dark:hover:border-red-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-100 dark:focus:ring-red-900/50"
+                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 bg-gradient-to-r from-red-50 to-rose-50 hover:from-red-100 hover:to-rose-100 dark:from-red-900/20 dark:to-rose-900/20 dark:hover:from-red-900/30 dark:hover:to-rose-900/30 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-200 font-semibold text-xs sm:text-sm rounded-lg border border-red-200 dark:border-red-800 hover:border-red-300 dark:hover:border-red-700 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-100 dark:focus:ring-red-900/50"
                     >
                       <svg
-                        className="w-4 h-4 mr-1"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -635,22 +635,22 @@ const Employees = () => {
 
         {/* Pagination */}
         {pagination.last_page > 1 && (
-          <div className="mt-10 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <div className="mt-6 sm:mt-8 lg:mt-10 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-700">
             <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400 order-2 sm:order-1">
                 <span>
                   Page {pagination.current_page} of {pagination.last_page}
                 </span>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-col xs:flex-row items-center gap-3 xs:gap-2 order-1 sm:order-2">
                 <button
                   onClick={() => handlePageChange(pagination.current_page - 1)}
                   disabled={pagination.current_page === 1}
-                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200"
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[80px] sm:min-w-[100px]"
                 >
                   <svg
-                    className="w-4 h-4 mr-2"
+                    className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -662,52 +662,93 @@ const Employees = () => {
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  Previous
+                  <span className="hidden xs:inline">Previous</span>
+                  <span className="xs:hidden">Prev</span>
                 </button>
 
                 <div className="flex items-center space-x-1">
-                  {Array.from(
-                    { length: Math.min(5, pagination.last_page) },
-                    (_, i) => {
-                      let page;
-                      if (pagination.last_page <= 5) {
-                        page = i + 1;
-                      } else if (pagination.current_page <= 3) {
-                        page = i + 1;
-                      } else if (
-                        pagination.current_page >=
-                        pagination.last_page - 2
-                      ) {
-                        page = pagination.last_page - 4 + i;
-                      } else {
-                        page = pagination.current_page - 2 + i;
-                      }
+                  {/* Mobile: Show 3 pages, Desktop: Show 5 pages */}
+                  <div className="hidden sm:flex items-center space-x-1">
+                    {Array.from(
+                      { length: Math.min(5, pagination.last_page) },
+                      (_, i) => {
+                        let page;
+                        if (pagination.last_page <= 5) {
+                          page = i + 1;
+                        } else if (pagination.current_page <= 3) {
+                          page = i + 1;
+                        } else if (
+                          pagination.current_page >=
+                          pagination.last_page - 2
+                        ) {
+                          page = pagination.last_page - 4 + i;
+                        } else {
+                          page = pagination.current_page - 2 + i;
+                        }
 
-                      return (
-                        <button
-                          key={page}
-                          onClick={() => handlePageChange(page)}
-                          className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                            page === pagination.current_page
-                              ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
-                              : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      );
-                    }
-                  )}
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={`px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 min-w-[32px] sm:min-w-[40px] ${
+                              page === pagination.current_page
+                                ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      }
+                    )}
+                  </div>
+
+                  {/* Mobile pagination - show fewer pages */}
+                  <div className="flex sm:hidden items-center space-x-1">
+                    {Array.from(
+                      { length: Math.min(3, pagination.last_page) },
+                      (_, i) => {
+                        let page;
+                        if (pagination.last_page <= 3) {
+                          page = i + 1;
+                        } else if (pagination.current_page <= 2) {
+                          page = i + 1;
+                        } else if (
+                          pagination.current_page >=
+                          pagination.last_page - 1
+                        ) {
+                          page = pagination.last_page - 2 + i;
+                        } else {
+                          page = pagination.current_page - 1 + i;
+                        }
+
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={`px-2.5 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 min-w-[32px] ${
+                              page === pagination.current_page
+                                ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg transform scale-105"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 hover:text-indigo-600 dark:hover:text-indigo-400"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        );
+                      }
+                    )}
+                  </div>
                 </div>
 
                 <button
                   onClick={() => handlePageChange(pagination.current_page + 1)}
                   disabled={pagination.current_page === pagination.last_page}
-                  className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200"
+                  className="flex items-center justify-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white dark:disabled:hover:bg-gray-800 transition-colors duration-200 min-w-[80px] sm:min-w-[100px]"
                 >
-                  Next
+                  <span className="hidden xs:inline">Next</span>
+                  <span className="xs:hidden">Next</span>
                   <svg
-                    className="w-4 h-4 ml-2"
+                    className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
