@@ -32,6 +32,15 @@ html.dark [class*="dark:bg-gray-900"] {
   background-color: #111827 !important;
 }
 
+/* Force navbar text colors to be visible */
+html:not(.dark) nav p[class*="text-black"] {
+  color: #000000 !important;
+}
+
+html:not(.dark) nav p[class*="text-gray-600"] {
+  color: #4b5563 !important;
+}
+
 /* Basic theme transitions only */
 * {
   transition: background-color 0.2s ease, color 0.2s ease;

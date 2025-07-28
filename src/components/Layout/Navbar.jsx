@@ -150,7 +150,7 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-50 p-2 transition-colors duration-200"
+              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 p-2 transition-colors duration-200"
             >
               <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-medium text-sm">
@@ -162,11 +162,25 @@ const Navbar = ({ onMenuClick }) => {
                 </span>
               </div>
               <div className="hidden md:block text-left">
-                <p className="text-gray-900 font-medium">{user?.name}</p>
-                <p className="text-gray-500 text-xs">{user?.email}</p>
+                <p
+                  className="font-medium"
+                  style={{
+                    color: isDark ? "#f3f4f6" : "#000000",
+                  }}
+                >
+                  {user?.name}
+                </p>
+                <p
+                  className="text-xs"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                  }}
+                >
+                  {user?.email}
+                </p>
               </div>
               <svg
-                className="w-4 h-4 text-gray-400"
+                className="w-4 h-4 text-gray-600 dark:text-gray-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
