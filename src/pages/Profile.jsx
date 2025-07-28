@@ -166,18 +166,6 @@ const Profile = () => {
             </h2>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {success && (
-                <div className="animate-fade-in bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-400 px-4 py-3 rounded-lg text-sm">
-                  {success}
-                </div>
-              )}
-
-              {error && (
-                <div className="animate-fade-in bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
-                  {error}
-                </div>
-              )}
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label
