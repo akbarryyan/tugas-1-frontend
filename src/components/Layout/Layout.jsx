@@ -12,7 +12,7 @@ const Layout = () => {
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       {/* Main Content */}
-      <div className="flex flex-col flex-1 overflow-hidden lg:ml-64">
+      <div className="flex flex-col flex-1 overflow-hidden">
         {/* Navbar */}
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
 
