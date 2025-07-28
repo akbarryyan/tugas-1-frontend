@@ -49,32 +49,7 @@ html.dark div[class*="min-h-screen"] {
   background-image: none !important;
 }
 
-/* Force all dropdown menus to always be white */
-.absolute[class*="bg-white"],
-[class*="absolute"][class*="bg-white"],
-div.absolute[class*="shadow"],
-nav div.absolute {
-  background-color: #ffffff !important;
-  color: #111827 !important;
-  border-color: #e5e7eb !important;
-}
-
-/* Force dropdown buttons and content to be readable */
-.absolute[class*="bg-white"] button,
-[class*="absolute"][class*="bg-white"] button,
-div.absolute[class*="shadow"] button,
-nav div.absolute button {
-  color: #111827 !important;
-  background-color: transparent !important;
-}
-
-.absolute[class*="bg-white"] button:hover,
-[class*="absolute"][class*="bg-white"] button:hover,
-div.absolute[class*="shadow"] button:hover,
-nav div.absolute button:hover {
-  background-color: #f9fafb !important;
-  color: #111827 !important;
-}
+/* Let dropdown follow theme - removed forced white background */
 
 /* Override any potential Tailwind interference - exclude dropdowns */
 html:not(.dark) [class*="bg-gray-50"]:not(.absolute),
@@ -87,14 +62,7 @@ html.dark [class*="bg-gray-800"]:not(.absolute) {
   background-color: #111827 !important;
 }
 
-/* Ensure dropdown always white - highest priority */
-html.dark .absolute[class*="bg-white"],
-html.dark [class*="absolute"][class*="bg-white"],
-html.dark div.absolute[class*="shadow"],
-html.dark nav div.absolute {
-  background-color: #ffffff !important;
-  color: #111827 !important;
-}
+/* Let dropdown follow theme - removed forced white background */
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
