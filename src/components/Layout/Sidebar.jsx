@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
 import {
   employeesService,
   divisionsService,
@@ -10,6 +11,7 @@ import { useLocalStorageListener } from "../../hooks/useLocalStorageListener";
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user } = useAuth();
+  const { isDark } = useTheme();
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const [employeeCount, setEmployeeCount] = useState(0);
@@ -195,14 +197,19 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Sidebar */}
       <div
         className={`
-        fixed top-0 left-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 sidebar-glassmorphism
+        fixed top-0 left-0 h-full w-64 sidebar-glassmorphism
         transform transition-all duration-500 ease-out z-50
-        border-r border-gray-200/50 dark:border-gray-700/50
-        lg:translate-x-0 lg:static lg:inset-0 lg:bg-white lg:dark:bg-gray-900
+        lg:translate-x-0 lg:static lg:inset-0
         ${isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full shadow-none"}
         lg:shadow-none lg:backdrop-blur-none
       `}
         style={{
+          backgroundColor: isDark
+            ? "rgba(17, 24, 39, 0.95)"
+            : "rgba(248, 250, 252, 0.98)",
+          borderRight: isDark
+            ? "1px solid rgba(75, 85, 99, 0.5)"
+            : "1px solid rgba(203, 213, 225, 0.7)",
           transitionProperty: "transform, box-shadow, backdrop-filter",
           transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         }}
@@ -213,8 +220,11 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div
-            className="flex items-center justify-between p-6 border-b border-gray-200/50 dark:border-gray-700/50"
+            className="flex items-center justify-between p-6"
             style={{
+              borderBottom: isDark
+                ? "1px solid rgba(75, 85, 99, 0.5)"
+                : "1px solid rgba(203, 213, 225, 0.7)",
               animation: isOpen
                 ? "slideInFromLeft 0.6s ease-out 0.2s both"
                 : "none",
@@ -237,10 +247,22 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </svg>
               </div>
               <div>
-                <h1 className="text-lg font-bold bg-gradient-to-r from-gray-900 to-indigo-600 dark:from-white dark:to-indigo-400 bg-clip-text text-transparent">
+                <h1
+                  className="text-lg font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: isDark
+                      ? "linear-gradient(to right, #ffffff, #818cf8)"
+                      : "linear-gradient(to right, #1f2937, #4f46e5)",
+                  }}
+                >
                   EmpManage
                 </h1>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p
+                  className="text-xs"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#64748b",
+                  }}
+                >
                   Management System
                 </p>
               </div>
@@ -269,24 +291,47 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* User Profile Section */}
           <div
-            className="px-6 py-4 border-b border-gray-200/50 dark:border-gray-700/50"
+            className="px-6 py-4"
             style={{
+              borderBottom: isDark
+                ? "1px solid rgba(75, 85, 99, 0.5)"
+                : "1px solid rgba(203, 213, 225, 0.7)",
               animation: isOpen
                 ? "slideInFromLeft 0.6s ease-out 0.3s both"
                 : "none",
             }}
           >
-            <div className="flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200/50 dark:border-indigo-800/50 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
+            <div
+              className="flex items-center space-x-3 p-3 rounded-xl border transform transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+              style={{
+                backgroundColor: isDark
+                  ? "rgba(79, 70, 229, 0.1)"
+                  : "rgba(239, 246, 255, 0.8)",
+                borderColor: isDark
+                  ? "rgba(79, 70, 229, 0.3)"
+                  : "rgba(99, 102, 241, 0.2)",
+              }}
+            >
               <div className="h-10 w-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md transform transition-transform duration-300 hover:scale-110">
                 <span className="text-white font-semibold text-sm">
                   {user?.name?.charAt(0) || "A"}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                <p
+                  className="text-sm font-semibold truncate"
+                  style={{
+                    color: isDark ? "#ffffff" : "#1f2937",
+                  }}
+                >
                   {user?.name || "Administrator"}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                <p
+                  className="text-xs truncate"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#64748b",
+                  }}
+                >
                   {user?.email || "admin@company.com"}
                 </p>
               </div>
@@ -314,26 +359,73 @@ const Sidebar = ({ isOpen, onClose }) => {
                     ${
                       active
                         ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg scale-[1.02]"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-900/20 dark:hover:to-purple-900/20 hover:text-indigo-700 dark:hover:text-indigo-300 hover:shadow-md"
+                        : ""
                     }
                   `}
                   style={{
+                    backgroundColor: !active
+                      ? isDark
+                        ? "transparent"
+                        : "transparent"
+                      : undefined,
+                    color: !active
+                      ? isDark
+                        ? "#d1d5db"
+                        : "#374151"
+                      : undefined,
                     animation: isOpen
                       ? `slideInFromLeft 0.6s ease-out ${
                           0.5 + index * 0.1
                         }s both`
                       : "none",
                   }}
+                  onMouseEnter={(e) => {
+                    if (!active) {
+                      e.target.style.backgroundColor = isDark
+                        ? "rgba(79, 70, 229, 0.1)"
+                        : "rgba(239, 246, 255, 0.7)";
+                      e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                      e.target.style.boxShadow =
+                        "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) {
+                      e.target.style.backgroundColor = "transparent";
+                      e.target.style.color = isDark ? "#d1d5db" : "#374151";
+                      e.target.style.boxShadow = "none";
+                    }
+                  }}
                 >
                   <div
                     className={`
                     mr-3 p-1.5 rounded-lg transition-all duration-300
-                    ${
-                      active
-                        ? "bg-white/20 shadow-sm"
-                        : "group-hover:bg-indigo-100 dark:group-hover:bg-indigo-800/50 group-hover:shadow-sm"
-                    }
+                    ${active ? "bg-white/20 shadow-sm" : ""}
                   `}
+                    style={{
+                      backgroundColor: !active
+                        ? isDark
+                          ? "rgba(79, 70, 229, 0.1)"
+                          : "rgba(239, 246, 255, 0.5)"
+                        : undefined,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active) {
+                        e.target.style.backgroundColor = isDark
+                          ? "rgba(79, 70, 229, 0.2)"
+                          : "rgba(99, 102, 241, 0.15)";
+                        e.target.style.boxShadow =
+                          "0 2px 4px rgba(0, 0, 0, 0.05)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active) {
+                        e.target.style.backgroundColor = isDark
+                          ? "rgba(79, 70, 229, 0.1)"
+                          : "rgba(239, 246, 255, 0.5)";
+                        e.target.style.boxShadow = "none";
+                      }
+                    }}
                   >
                     {item.icon}
                   </div>
@@ -346,10 +438,25 @@ const Sidebar = ({ isOpen, onClose }) => {
                     </div>
                     <p
                       className={`text-xs mt-0.5 transition-colors duration-300 ${
-                        active
-                          ? "text-white/80"
-                          : "text-gray-500 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
+                        active ? "text-white/80" : ""
                       }`}
+                      style={{
+                        color: !active
+                          ? isDark
+                            ? "#9ca3af"
+                            : "#64748b"
+                          : undefined,
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!active) {
+                          e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!active) {
+                          e.target.style.color = isDark ? "#9ca3af" : "#64748b";
+                        }
+                      }}
                     >
                       {item.description}
                     </p>
@@ -361,32 +468,65 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Footer */}
           <div
-            className="p-4 border-t border-gray-200/50 dark:border-gray-700/50 space-y-3"
+            className="p-4 space-y-3"
             style={{
+              borderTop: isDark
+                ? "1px solid rgba(75, 85, 99, 0.5)"
+                : "1px solid rgba(203, 213, 225, 0.7)",
               animation: isOpen
                 ? "slideInFromLeft 0.6s ease-out 0.8s both"
                 : "none",
             }}
           >
             {/* System Status */}
-            <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-emerald-50/80 to-green-50/80 dark:from-emerald-900/20 dark:to-green-900/20 border border-emerald-200/50 dark:border-emerald-800/50">
+            <div
+              className="flex items-center justify-between p-3 rounded-lg border"
+              style={{
+                backgroundColor: isDark
+                  ? "rgba(16, 185, 129, 0.1)"
+                  : "rgba(236, 253, 245, 0.8)",
+                borderColor: isDark
+                  ? "rgba(16, 185, 129, 0.3)"
+                  : "rgba(16, 185, 129, 0.2)",
+              }}
+            >
               <div className="flex items-center space-x-2">
                 <div className="relative">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
                   <div className="absolute inset-0 w-2 h-2 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
                 </div>
-                <span className="text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                <span
+                  className="text-xs font-medium"
+                  style={{
+                    color: isDark ? "#10b981" : "#047857",
+                  }}
+                >
                   System Active
                 </span>
               </div>
-              <span className="text-xs text-emerald-600 dark:text-emerald-500 font-mono">
+              <span
+                className="text-xs font-mono"
+                style={{
+                  color: isDark ? "#34d399" : "#059669",
+                }}
+              >
                 v2.1.0
               </span>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-2">
-              <div className="p-2 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200/50 dark:border-blue-800/50">
+              <div
+                className="p-2 rounded-lg border"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(59, 130, 246, 0.1)"
+                    : "rgba(239, 246, 255, 0.8)",
+                  borderColor: isDark
+                    ? "rgba(59, 130, 246, 0.3)"
+                    : "rgba(59, 130, 246, 0.2)",
+                }}
+              >
                 <div className="flex items-center space-x-1.5">
                   <svg
                     className="w-3 h-3 text-blue-600 dark:text-blue-400"
@@ -402,17 +542,37 @@ const Sidebar = ({ isOpen, onClose }) => {
                     />
                   </svg>
                   <div>
-                    <p className="text-xs font-bold text-blue-700 dark:text-blue-300">
+                    <p
+                      className="text-xs font-bold"
+                      style={{
+                        color: isDark ? "#60a5fa" : "#2563eb",
+                      }}
+                    >
                       Employees
                     </p>
-                    <p className="text-xs text-blue-600 dark:text-blue-400 font-mono">
+                    <p
+                      className="text-xs font-mono"
+                      style={{
+                        color: isDark ? "#93c5fd" : "#1d4ed8",
+                      }}
+                    >
                       {employeeCount}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-2 rounded-lg bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200/50 dark:border-purple-800/50">
+              <div
+                className="p-2 rounded-lg border"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(147, 51, 234, 0.1)"
+                    : "rgba(250, 245, 255, 0.8)",
+                  borderColor: isDark
+                    ? "rgba(147, 51, 234, 0.3)"
+                    : "rgba(147, 51, 234, 0.2)",
+                }}
+              >
                 <div className="flex items-center space-x-1.5">
                   <svg
                     className="w-3 h-3 text-purple-600 dark:text-purple-400"
@@ -428,10 +588,20 @@ const Sidebar = ({ isOpen, onClose }) => {
                     />
                   </svg>
                   <div>
-                    <p className="text-xs font-bold text-purple-700 dark:text-purple-300">
+                    <p
+                      className="text-xs font-bold"
+                      style={{
+                        color: isDark ? "#a78bfa" : "#7c3aed",
+                      }}
+                    >
                       Divisions
                     </p>
-                    <p className="text-xs text-purple-600 dark:text-purple-400 font-mono">
+                    <p
+                      className="text-xs font-mono"
+                      style={{
+                        color: isDark ? "#c4b5fd" : "#6d28d9",
+                      }}
+                    >
                       {divisionCount}
                     </p>
                   </div>
@@ -441,7 +611,12 @@ const Sidebar = ({ isOpen, onClose }) => {
 
             {/* Company Info */}
             <div className="text-center pt-2">
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+              <p
+                className="text-xs mb-1"
+                style={{
+                  color: isDark ? "#9ca3af" : "#64748b",
+                }}
+              >
                 © 2025 EmpManage
               </p>
             </div>
