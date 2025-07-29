@@ -759,8 +759,7 @@ const Employees = () => {
                       </p>
                     </div>
                   </div>
-
-                  <div className="space-y-3 mb-6">
+                  <div className="space-y-1 mb-6">
                     <div
                       className={`flex items-center text-sm rounded-lg p-3 transition-colors duration-200 ${
                         isDark
@@ -792,7 +791,13 @@ const Employees = () => {
                       <span className="font-medium">{employee.phone}</span>
                     </div>
 
-                    <div className="flex items-center">
+                    <div
+                      className={`flex items-center text-sm rounded-lg p-3 transition-colors duration-200 ${
+                        isDark
+                          ? "bg-gray-800/50 text-gray-400 group-hover:bg-purple-900/20"
+                          : "bg-slate-50 text-slate-600 group-hover:bg-purple-50"
+                      }`}
+                    >
                       <div
                         className={`p-1.5 rounded-lg mr-3 ${
                           isDark ? "bg-purple-900/40" : "bg-purple-100"
@@ -824,8 +829,7 @@ const Employees = () => {
                         {employee.division.name}
                       </span>
                     </div>
-                  </div>
-
+                  </div>{" "}
                   <div className="flex flex-col xs:flex-row gap-2 xs:gap-2">
                     <button
                       onClick={() => handleView(employee)}
