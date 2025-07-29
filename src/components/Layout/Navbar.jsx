@@ -166,22 +166,24 @@ const Navbar = ({ onMenuClick }) => {
               className="p-2 relative overflow-hidden group transform transition-all duration-300 hover:scale-105 active:scale-95 rounded-xl border border-transparent shadow-sm hover:shadow-md"
               style={{
                 color: isDark ? "#ffffff" : "#111827",
-                backgroundColor: isDark ? "transparent" : "transparent",
-                borderColor: isDark ? "transparent" : "transparent",
+                backgroundColor: "transparent",
+                borderColor: "transparent",
               }}
               onMouseEnter={(e) => {
-                e.target.style.backgroundColor = isDark
+                const button = e.currentTarget;
+                button.style.backgroundColor = isDark
                   ? "rgba(79, 70, 229, 0.1)"
                   : "rgba(239, 246, 255, 0.8)";
-                e.target.style.borderColor = isDark
+                button.style.borderColor = isDark
                   ? "rgba(79, 70, 229, 0.3)"
                   : "rgba(99, 102, 241, 0.3)";
-                e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                button.style.color = isDark ? "#a5b4fc" : "#4f46e5";
               }}
               onMouseLeave={(e) => {
-                e.target.style.backgroundColor = "transparent";
-                e.target.style.borderColor = "transparent";
-                e.target.style.color = isDark ? "#ffffff" : "#111827";
+                const button = e.currentTarget;
+                button.style.backgroundColor = "transparent";
+                button.style.borderColor = "transparent";
+                button.style.color = isDark ? "#ffffff" : "#111827";
               }}
               aria-label="Theme Switcher"
             >
@@ -253,23 +255,25 @@ const Navbar = ({ onMenuClick }) => {
                       }}
                       onMouseEnter={(e) => {
                         if (theme !== themeOption.value) {
-                          e.target.style.backgroundColor = isDark
+                          const button = e.currentTarget;
+                          button.style.backgroundColor = isDark
                             ? "rgba(79, 70, 229, 0.1)"
                             : "rgba(239, 246, 255, 0.6)";
-                          e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
-                          e.target.style.borderLeftColor = isDark
+                          button.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                          button.style.borderLeftColor = isDark
                             ? "#6366f1"
                             : "#4f46e5";
-                          e.target.style.boxShadow =
+                          button.style.boxShadow =
                             "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (theme !== themeOption.value) {
-                          e.target.style.backgroundColor = "transparent";
-                          e.target.style.color = isDark ? "#d1d5db" : "#374151";
-                          e.target.style.borderLeftColor = "transparent";
-                          e.target.style.boxShadow = "none";
+                          const button = e.currentTarget;
+                          button.style.backgroundColor = "transparent";
+                          button.style.color = isDark ? "#d1d5db" : "#374151";
+                          button.style.borderLeftColor = "transparent";
+                          button.style.boxShadow = "none";
                         }
                       }}
                     >
@@ -412,21 +416,22 @@ const Navbar = ({ onMenuClick }) => {
                       color: isDark ? "#d1d5db" : "#374151",
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = isDark
+                      const link = e.currentTarget;
+                      link.style.backgroundColor = isDark
                         ? "rgba(79, 70, 229, 0.1)"
                         : "rgba(239, 246, 255, 0.7)";
-                      e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
-                      e.target.style.borderLeftColor = isDark
+                      link.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                      link.style.borderLeftColor = isDark
                         ? "#6366f1"
                         : "#4f46e5";
-                      e.target.style.boxShadow =
-                        "0 2px 4px rgba(0, 0, 0, 0.05)";
+                      link.style.boxShadow = "0 2px 4px rgba(0, 0, 0, 0.05)";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "transparent";
-                      e.target.style.color = isDark ? "#d1d5db" : "#374151";
-                      e.target.style.borderLeftColor = "transparent";
-                      e.target.style.boxShadow = "none";
+                      const link = e.currentTarget;
+                      link.style.backgroundColor = "transparent";
+                      link.style.color = isDark ? "#d1d5db" : "#374151";
+                      link.style.borderLeftColor = "transparent";
+                      link.style.boxShadow = "none";
                     }}
                   >
                     <svg
@@ -452,19 +457,21 @@ const Navbar = ({ onMenuClick }) => {
                       color: isDark ? "#f87171" : "#dc2626",
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = isDark
+                      const button = e.currentTarget;
+                      button.style.backgroundColor = isDark
                         ? "rgba(239, 68, 68, 0.1)"
                         : "rgba(254, 242, 242, 0.8)";
-                      e.target.style.borderLeftColor = isDark
+                      button.style.borderLeftColor = isDark
                         ? "#ef4444"
                         : "#dc2626";
-                      e.target.style.boxShadow =
+                      button.style.boxShadow =
                         "0 2px 4px rgba(239, 68, 68, 0.1)";
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = "transparent";
-                      e.target.style.borderLeftColor = "transparent";
-                      e.target.style.boxShadow = "none";
+                      const button = e.currentTarget;
+                      button.style.backgroundColor = "transparent";
+                      button.style.borderLeftColor = "transparent";
+                      button.style.boxShadow = "none";
                     }}
                   >
                     <svg
