@@ -1389,7 +1389,17 @@ const Employees = () => {
       {/* View Employee Modal */}
       {showViewModal && viewingEmployee && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in">
+          <div
+            className="backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border animate-scale-in"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(31, 41, 55, 0.95)"
+                : "rgba(255, 255, 255, 0.98)",
+              borderColor: isDark
+                ? "rgba(75, 85, 99, 0.5)"
+                : "rgba(219, 234, 254, 0.8)",
+            }}
+          >
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center space-x-4">
@@ -1415,17 +1425,60 @@ const Employees = () => {
                     </svg>
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-indigo-600 dark:from-white dark:to-indigo-400 bg-clip-text text-transparent">
+                    <h2
+                      className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                      style={{
+                        backgroundImage: isDark
+                          ? "linear-gradient(to right, #ffffff, #a5b4fc)"
+                          : "linear-gradient(to right, #1f2937, #4f46e5)",
+                      }}
+                    >
                       Employee Details
                     </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <p
+                      className="text-sm mt-1"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
                       View employee information
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={closeViewModal}
-                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                  className="p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-4"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                    backgroundColor: "transparent",
+                    "--hover-bg": isDark
+                      ? "rgba(55, 65, 81, 0.5)"
+                      : "rgba(243, 244, 246, 0.8)",
+                    "--focus-ring": isDark
+                      ? "rgba(156, 163, 175, 0.3)"
+                      : "rgba(209, 213, 219, 0.5)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      e.currentTarget.style.getPropertyValue("--hover-bg");
+                    e.currentTarget.style.color = isDark
+                      ? "#d1d5db"
+                      : "#374151";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.color = isDark
+                      ? "#9ca3af"
+                      : "#6b7280";
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                      "--focus-ring"
+                    )}`;
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
                   <svg
                     className="w-6 h-6"
@@ -1444,21 +1497,49 @@ const Employees = () => {
               </div>
 
               {/* Employee Photo Section */}
-              <div className="flex flex-col items-center mb-8 p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800">
+              <div
+                className="flex flex-col items-center mb-8 p-6 rounded-2xl border"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(147, 51, 234, 0.15))"
+                    : "linear-gradient(135deg, rgba(239, 246, 255, 0.8), rgba(245, 243, 255, 0.8))",
+                  borderColor: isDark
+                    ? "rgba(79, 70, 229, 0.3)"
+                    : "rgba(199, 210, 254, 0.6)",
+                }}
+              >
                 <div className="relative mb-4">
                   <img
                     src={viewingEmployee.image}
                     alt={viewingEmployee.name}
-                    className="w-24 h-24 rounded-2xl object-cover shadow-xl ring-4 ring-white dark:ring-gray-800"
+                    className="w-24 h-24 rounded-2xl object-cover shadow-xl ring-4"
+                    style={{
+                      ringColor: isDark ? "#374151" : "#ffffff",
+                    }}
                   />
-                  <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-gray-800 shadow-lg">
+                  <div
+                    className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 shadow-lg"
+                    style={{
+                      borderColor: isDark ? "#374151" : "#ffffff",
+                    }}
+                  >
                     <div className="w-full h-full bg-green-500 rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <h3
+                  className="text-2xl font-bold mb-1"
+                  style={{
+                    color: isDark ? "#ffffff" : "#111827",
+                  }}
+                >
                   {viewingEmployee.name}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 font-medium">
+                <p
+                  className="font-medium"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                  }}
+                >
                   {viewingEmployee.position}
                 </p>
               </div>
@@ -1467,21 +1548,48 @@ const Employees = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
                       Full Name
                     </label>
-                    <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                      <p className="text-gray-900 dark:text-white font-medium">
+                    <div
+                      className="p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#f8fafc",
+                        borderColor: isDark ? "#4b5563" : "#e2e8f0",
+                      }}
+                    >
+                      <p
+                        className="font-medium"
+                        style={{
+                          color: isDark ? "#ffffff" : "#1e293b",
+                        }}
+                      >
                         {viewingEmployee.name}
                       </p>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
                       Phone Number
                     </label>
-                    <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div
+                      className="p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#f8fafc",
+                        borderColor: isDark ? "#4b5563" : "#e2e8f0",
+                      }}
+                    >
                       <div className="flex items-center space-x-2">
                         <svg
                           className="w-4 h-4 text-indigo-500"
@@ -1496,7 +1604,12 @@ const Employees = () => {
                             d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                           />
                         </svg>
-                        <p className="text-gray-900 dark:text-white font-medium">
+                        <p
+                          className="font-medium"
+                          style={{
+                            color: isDark ? "#ffffff" : "#1e293b",
+                          }}
+                        >
                           {viewingEmployee.phone}
                         </p>
                       </div>
@@ -1506,10 +1619,21 @@ const Employees = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
                       Division
                     </label>
-                    <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div
+                      className="p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#f8fafc",
+                        borderColor: isDark ? "#4b5563" : "#e2e8f0",
+                      }}
+                    >
                       <div className="flex items-center space-x-2">
                         <svg
                           className="w-4 h-4 text-purple-500"
@@ -1524,7 +1648,12 @@ const Employees = () => {
                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                           />
                         </svg>
-                        <p className="text-gray-900 dark:text-white font-medium">
+                        <p
+                          className="font-medium"
+                          style={{
+                            color: isDark ? "#ffffff" : "#1e293b",
+                          }}
+                        >
                           {viewingEmployee.division.name}
                         </p>
                       </div>
@@ -1532,10 +1661,21 @@ const Employees = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
                       Position
                     </label>
-                    <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <div
+                      className="p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#f8fafc",
+                        borderColor: isDark ? "#4b5563" : "#e2e8f0",
+                      }}
+                    >
                       <div className="flex items-center space-x-2">
                         <svg
                           className="w-4 h-4 text-green-500"
@@ -1550,7 +1690,12 @@ const Employees = () => {
                             d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2M8 6v2m0 0v8a2 2 0 002 2h4a2 2 0 002-2v-8m-6 0h4"
                           />
                         </svg>
-                        <p className="text-gray-900 dark:text-white font-medium">
+                        <p
+                          className="font-medium"
+                          style={{
+                            color: isDark ? "#ffffff" : "#1e293b",
+                          }}
+                        >
                           {viewingEmployee.position}
                         </p>
                       </div>
