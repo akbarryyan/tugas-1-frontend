@@ -163,33 +163,123 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
-              className="btn-ghost p-2 relative text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+              className="p-2 relative overflow-hidden group transform transition-all duration-300 hover:scale-105 active:scale-95 rounded-xl border border-transparent shadow-sm hover:shadow-md"
               style={{
                 color: isDark ? "#ffffff" : "#111827",
+                backgroundColor: isDark ? "transparent" : "transparent",
+                borderColor: isDark ? "transparent" : "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = isDark
+                  ? "rgba(79, 70, 229, 0.1)"
+                  : "rgba(239, 246, 255, 0.8)";
+                e.target.style.borderColor = isDark
+                  ? "rgba(79, 70, 229, 0.3)"
+                  : "rgba(99, 102, 241, 0.3)";
+                e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.borderColor = "transparent";
+                e.target.style.color = isDark ? "#ffffff" : "#111827";
               }}
               aria-label="Theme Switcher"
             >
-              {getThemeIcon(theme)}
+              {/* Background gradient effect */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl"
+                style={{
+                  backgroundImage: isDark
+                    ? "linear-gradient(to right, rgba(79, 70, 229, 0.1), rgba(147, 51, 234, 0.1))"
+                    : "linear-gradient(to right, rgba(239, 246, 255, 0.9), rgba(250, 245, 255, 0.9))",
+                }}
+              ></div>
+
+              {/* Icon with enhanced styling */}
+              <div className="relative z-10 transform transition-all duration-300 group-hover:scale-110">
+                {getThemeIcon(theme)}
+              </div>
+
+              {/* Ripple effect */}
+              <div
+                className="absolute inset-0 rounded-xl transform scale-0 group-active:scale-100 transition-transform duration-150"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(79, 70, 229, 0.2)"
+                    : "rgba(99, 102, 241, 0.2)",
+                }}
+              ></div>
             </button>
 
             {themeDropdownOpen && (
               <>
-                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-50">
+                <div
+                  className="absolute right-0 mt-2 w-48 rounded-xl shadow-xl border z-50 overflow-hidden backdrop-blur-sm animate-fade-in"
+                  style={{
+                    backgroundColor: isDark
+                      ? "rgba(17, 24, 39, 0.95)"
+                      : "rgba(255, 255, 255, 0.95)",
+                    borderColor: isDark
+                      ? "rgba(75, 85, 99, 0.3)"
+                      : "rgba(203, 213, 225, 0.5)",
+                  }}
+                >
                   {themes.map((themeOption) => (
                     <button
                       key={themeOption.value}
                       onClick={() => handleThemeChange(themeOption.value)}
-                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center space-x-2 first:rounded-t-lg last:rounded-b-lg transition-colors duration-150 ${
-                        theme === themeOption.value
-                          ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20"
-                          : "text-gray-700 dark:text-gray-200"
-                      }`}
+                      className={`w-full text-left px-4 py-3 text-sm flex items-center space-x-3 first:rounded-t-xl last:rounded-b-xl transition-all duration-200 transform hover:scale-[1.02] border-l-4 border-transparent`}
+                      style={{
+                        backgroundColor:
+                          theme === themeOption.value
+                            ? isDark
+                              ? "rgba(79, 70, 229, 0.2)"
+                              : "rgba(239, 246, 255, 0.8)"
+                            : "transparent",
+                        borderLeftColor:
+                          theme === themeOption.value
+                            ? isDark
+                              ? "#6366f1"
+                              : "#4f46e5"
+                            : "transparent",
+                        color:
+                          theme === themeOption.value
+                            ? isDark
+                              ? "#a5b4fc"
+                              : "#4f46e5"
+                            : isDark
+                            ? "#d1d5db"
+                            : "#374151",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (theme !== themeOption.value) {
+                          e.target.style.backgroundColor = isDark
+                            ? "rgba(79, 70, 229, 0.1)"
+                            : "rgba(239, 246, 255, 0.6)";
+                          e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                          e.target.style.borderLeftColor = isDark
+                            ? "#6366f1"
+                            : "#4f46e5";
+                          e.target.style.boxShadow =
+                            "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (theme !== themeOption.value) {
+                          e.target.style.backgroundColor = "transparent";
+                          e.target.style.color = isDark ? "#d1d5db" : "#374151";
+                          e.target.style.borderLeftColor = "transparent";
+                          e.target.style.boxShadow = "none";
+                        }
+                      }}
                     >
-                      {getThemeIcon(themeOption.value)}
-                      <span>{themeOption.label}</span>
+                      <div className="transform transition-transform duration-200 hover:scale-110">
+                        {getThemeIcon(themeOption.value)}
+                      </div>
+                      <span className="font-medium">{themeOption.label}</span>
                       {theme === themeOption.value && (
                         <svg
-                          className="w-4 h-4 ml-auto"
+                          className="w-4 h-4 ml-auto animate-pulse"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -211,9 +301,25 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 p-2 transition-colors duration-200 border border-transparent hover:border-gray-200 dark:hover:border-gray-600"
+              className="flex items-center space-x-3 text-sm rounded-xl p-2 transition-all duration-300 border border-transparent shadow-sm hover:shadow-md transform hover:scale-105 active:scale-95 group"
+              style={{
+                backgroundColor: "transparent",
+                borderColor: "transparent",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = isDark
+                  ? "rgba(79, 70, 229, 0.1)"
+                  : "rgba(239, 246, 255, 0.8)";
+                e.target.style.borderColor = isDark
+                  ? "rgba(79, 70, 229, 0.3)"
+                  : "rgba(99, 102, 241, 0.3)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "transparent";
+                e.target.style.borderColor = "transparent";
+              }}
             >
-              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
                 <span className="text-white font-medium text-sm">
                   {user?.name
                     ?.split(" ")
@@ -241,9 +347,12 @@ const Navbar = ({ onMenuClick }) => {
                 </p>
               </div>
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
                 fill="currentColor"
                 viewBox="0 0 20 20"
+                style={{
+                  color: isDark ? "#9ca3af" : "#64748b",
+                }}
               >
                 <path
                   fillRule="evenodd"
@@ -254,8 +363,28 @@ const Navbar = ({ onMenuClick }) => {
             </button>
 
             {userDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-50">
-                <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+              <div
+                className="absolute right-0 mt-2 w-56 rounded-xl shadow-xl border z-50 overflow-hidden backdrop-blur-sm animate-fade-in"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(17, 24, 39, 0.95)"
+                    : "rgba(255, 255, 255, 0.95)",
+                  borderColor: isDark
+                    ? "rgba(75, 85, 99, 0.3)"
+                    : "rgba(203, 213, 225, 0.5)",
+                }}
+              >
+                <div
+                  className="px-4 py-3 border-b"
+                  style={{
+                    backgroundColor: isDark
+                      ? "rgba(79, 70, 229, 0.1)"
+                      : "rgba(239, 246, 255, 0.5)",
+                    borderBottomColor: isDark
+                      ? "rgba(75, 85, 99, 0.3)"
+                      : "rgba(203, 213, 225, 0.5)",
+                  }}
+                >
                   <p
                     className="text-sm font-medium text-gray-900 dark:text-gray-100"
                     style={{
@@ -277,11 +406,31 @@ const Navbar = ({ onMenuClick }) => {
                 <div className="py-1">
                   <Link
                     to="/profile"
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex items-center px-4 py-3 text-sm transition-all duration-200 transform hover:scale-[1.02] border-l-4 border-transparent"
                     onClick={() => setUserDropdownOpen(false)}
+                    style={{
+                      color: isDark ? "#d1d5db" : "#374151",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = isDark
+                        ? "rgba(79, 70, 229, 0.1)"
+                        : "rgba(239, 246, 255, 0.7)";
+                      e.target.style.color = isDark ? "#a5b4fc" : "#4f46e5";
+                      e.target.style.borderLeftColor = isDark
+                        ? "#6366f1"
+                        : "#4f46e5";
+                      e.target.style.boxShadow =
+                        "0 2px 4px rgba(0, 0, 0, 0.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent";
+                      e.target.style.color = isDark ? "#d1d5db" : "#374151";
+                      e.target.style.borderLeftColor = "transparent";
+                      e.target.style.boxShadow = "none";
+                    }}
                   >
                     <svg
-                      className="w-4 h-4 mr-3"
+                      className="w-4 h-4 mr-3 transform transition-transform duration-200 hover:scale-110"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -293,15 +442,33 @@ const Navbar = ({ onMenuClick }) => {
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                       />
                     </svg>
-                    Profile Settings
+                    <span className="font-medium">Profile Settings</span>
                   </Link>
 
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    className="w-full text-left flex items-center px-4 py-3 text-sm transition-all duration-200 transform hover:scale-[1.02] border-l-4 border-transparent"
+                    style={{
+                      color: isDark ? "#f87171" : "#dc2626",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = isDark
+                        ? "rgba(239, 68, 68, 0.1)"
+                        : "rgba(254, 242, 242, 0.8)";
+                      e.target.style.borderLeftColor = isDark
+                        ? "#ef4444"
+                        : "#dc2626";
+                      e.target.style.boxShadow =
+                        "0 2px 4px rgba(239, 68, 68, 0.1)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent";
+                      e.target.style.borderLeftColor = "transparent";
+                      e.target.style.boxShadow = "none";
+                    }}
                   >
                     <svg
-                      className="w-4 h-4 mr-3"
+                      className="w-4 h-4 mr-3 transform transition-transform duration-200 hover:scale-110"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -313,7 +480,7 @@ const Navbar = ({ onMenuClick }) => {
                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                       />
                     </svg>
-                    Sign out
+                    <span className="font-medium">Sign out</span>
                   </button>
                 </div>
               </div>
