@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 import {
   employeesService,
   divisionsService,
 } from "../services/employeeService";
 
 const Dashboard = () => {
+  const { isDark } = useTheme();
   const [stats, setStats] = useState({
     totalEmployees: 0,
     totalDivisions: 0,
@@ -137,10 +139,20 @@ const Dashboard = () => {
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1
+          className="text-3xl font-bold"
+          style={{
+            color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+          }}
+        >
           Dashboard
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p
+          className="mt-2"
+          style={{
+            color: isDark ? "#9ca3af" : "#4b5563", // gray-400 di dark, gray-600 di light
+          }}
+        >
           Welcome back! Here's an overview of your employee management system.
         </p>
       </div>
@@ -154,10 +166,20 @@ const Dashboard = () => {
                 <div className={stat.textColor}>{stat.icon}</div>
               </div>
               <div className="ml-4 flex-1">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <p
+                  className="text-sm font-medium"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#4b5563", // gray-400 di dark, gray-600 di light
+                  }}
+                >
                   {stat.title}
                 </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <p
+                  className="text-2xl font-bold"
+                  style={{
+                    color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+                  }}
+                >
                   {stat.value}
                 </p>
               </div>
@@ -171,7 +193,12 @@ const Dashboard = () => {
         {/* Recent Employees List */}
         <div className="card p-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h2
+              className="text-lg font-semibold"
+              style={{
+                color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+              }}
+            >
               Recent Employees
             </h2>
             <Link
@@ -191,7 +218,12 @@ const Dashboard = () => {
                   className="w-10 h-10 rounded-full object-cover"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  <p
+                    className="text-sm font-medium truncate"
+                    style={{
+                      color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+                    }}
+                  >
                     {employee.name}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
@@ -229,7 +261,12 @@ const Dashboard = () => {
 
         {/* Quick Actions */}
         <div className="card p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+          <h2
+            className="text-lg font-semibold mb-6"
+            style={{
+              color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+            }}
+          >
             Quick Actions
           </h2>
 
