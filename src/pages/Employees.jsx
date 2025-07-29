@@ -691,48 +691,32 @@ const Employees = () => {
             {employees.map((employee, index) => (
               <div
                 key={employee.id}
-                className="group card p-4 sm:p-6 card-hover relative overflow-hidden border-2 transition-all duration-300 animate-slide-in-left"
+                className={`group card p-4 sm:p-6 card-hover relative overflow-hidden transition-all duration-300 animate-slide-in-left ${
+                  isDark
+                    ? "bg-gray-800/50 border border-gray-700/50 hover:border-indigo-500/50 hover:bg-gray-800/70"
+                    : "bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-lg"
+                }`}
                 style={{
                   animationDelay: `${index * 100}ms`,
-                  borderColor: isDark ? "transparent" : "#e5e7eb",
-                  backgroundColor: isDark ? "" : "#ffffff",
-                  boxShadow: isDark
-                    ? ""
-                    : "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
-                  ...(!isDark && {
-                    "&:hover": {
-                      borderColor: "#818cf8",
-                      boxShadow:
-                        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                      transform: "translateY(-2px)",
-                    },
-                  }),
                 }}
                 onMouseEnter={(e) => {
                   if (!isDark) {
-                    e.target.style.borderColor = "#818cf8";
-                    e.target.style.boxShadow =
-                      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
                     e.target.style.transform = "translateY(-2px)";
+                  } else {
+                    e.target.style.transform = "translateY(-1px)";
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (!isDark) {
-                    e.target.style.borderColor = "#e5e7eb";
-                    e.target.style.boxShadow =
-                      "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)";
-                    e.target.style.transform = "translateY(0)";
-                  }
+                  e.target.style.transform = "translateY(0)";
                 }}
               >
                 {/* Background Pattern */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: isDark
-                      ? "linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)"
-                      : "linear-gradient(135deg, rgba(99, 102, 241, 0.03) 0%, rgba(139, 92, 246, 0.03) 100%)",
-                  }}
+                  className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                    isDark
+                      ? "bg-gradient-to-br from-indigo-900/20 to-purple-900/20"
+                      : "bg-gradient-to-br from-indigo-50/80 to-purple-50/80"
+                  }`}
                 ></div>
 
                 {/* Content */}
@@ -742,50 +726,34 @@ const Employees = () => {
                       <img
                         src={employee.image}
                         alt={employee.name}
-                        className="w-16 h-16 rounded-2xl object-cover shadow-lg ring-4 transition-all duration-300"
-                        style={{
-                          ringColor: isDark ? "#1f2937" : "#ffffff",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.ringColor = isDark
-                            ? "#4338ca"
-                            : "#818cf8";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.ringColor = isDark
-                            ? "#1f2937"
-                            : "#ffffff";
-                        }}
+                        className={`w-16 h-16 rounded-2xl object-cover shadow-lg ring-4 transition-all duration-300 ${
+                          isDark
+                            ? "ring-gray-800 group-hover:ring-indigo-600"
+                            : "ring-white group-hover:ring-indigo-300"
+                        }`}
                       />
                       <div
-                        className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 shadow-sm"
-                        style={{
-                          borderColor: isDark ? "#1f2937" : "#ffffff",
-                        }}
+                        className={`absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 shadow-sm ${
+                          isDark ? "border-gray-800" : "border-white"
+                        }`}
                       >
                         <div className="w-full h-full bg-green-500 rounded-full animate-pulse"></div>
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3
-                        className="text-lg font-bold truncate transition-colors duration-200"
-                        style={{
-                          color: isDark ? "#ffffff" : "#111827",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.color = isDark ? "#818cf8" : "#4f46e5";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.color = isDark ? "#ffffff" : "#111827";
-                        }}
+                        className={`text-lg font-bold truncate transition-colors duration-200 ${
+                          isDark
+                            ? "text-white group-hover:text-indigo-400"
+                            : "text-gray-900 group-hover:text-indigo-600"
+                        }`}
                       >
                         {employee.name}
                       </h3>
                       <p
-                        className="text-sm font-medium truncate"
-                        style={{
-                          color: isDark ? "#9ca3af" : "#6b7280",
-                        }}
+                        className={`text-sm font-medium truncate ${
+                          isDark ? "text-gray-400" : "text-gray-600"
+                        }`}
                       >
                         {employee.position}
                       </p>
@@ -794,35 +762,21 @@ const Employees = () => {
 
                   <div className="space-y-3 mb-6">
                     <div
-                      className="flex items-center text-sm rounded-lg p-3 transition-colors duration-200"
-                      style={{
-                        backgroundColor: isDark
-                          ? "rgba(31, 41, 55, 0.5)"
-                          : "#f8fafc",
-                        color: isDark ? "#9ca3af" : "#64748b",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(99, 102, 241, 0.2)"
-                          : "#f1f5f9";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(31, 41, 55, 0.5)"
-                          : "#f8fafc";
-                      }}
+                      className={`flex items-center text-sm rounded-lg p-3 transition-colors duration-200 ${
+                        isDark
+                          ? "bg-gray-800/50 text-gray-400 group-hover:bg-indigo-900/20"
+                          : "bg-slate-50 text-slate-600 group-hover:bg-indigo-50"
+                      }`}
                     >
                       <div
-                        className="p-1.5 rounded-lg mr-3"
-                        style={{
-                          backgroundColor: isDark
-                            ? "rgba(99, 102, 241, 0.4)"
-                            : "#e0e7ff",
-                        }}
+                        className={`p-1.5 rounded-lg mr-3 ${
+                          isDark ? "bg-indigo-900/40" : "bg-indigo-100"
+                        }`}
                       >
                         <svg
-                          className="w-3.5 h-3.5"
-                          style={{ color: isDark ? "#818cf8" : "#4f46e5" }}
+                          className={`w-3.5 h-3.5 ${
+                            isDark ? "text-indigo-400" : "text-indigo-600"
+                          }`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -840,16 +794,14 @@ const Employees = () => {
 
                     <div className="flex items-center">
                       <div
-                        className="p-1.5 rounded-lg mr-3"
-                        style={{
-                          backgroundColor: isDark
-                            ? "rgba(139, 92, 246, 0.4)"
-                            : "#f3e8ff",
-                        }}
+                        className={`p-1.5 rounded-lg mr-3 ${
+                          isDark ? "bg-purple-900/40" : "bg-purple-100"
+                        }`}
                       >
                         <svg
-                          className="w-3.5 h-3.5"
-                          style={{ color: isDark ? "#a78bfa" : "#7c3aed" }}
+                          className={`w-3.5 h-3.5 ${
+                            isDark ? "text-purple-400" : "text-purple-600"
+                          }`}
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -863,16 +815,11 @@ const Employees = () => {
                         </svg>
                       </div>
                       <span
-                        className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold border shadow-sm"
-                        style={{
-                          backgroundColor: isDark
-                            ? "rgba(139, 92, 246, 0.3)"
-                            : "#f8fafc",
-                          color: isDark ? "#d8b4fe" : "#6366f1",
-                          borderColor: isDark
-                            ? "rgba(139, 92, 246, 0.8)"
-                            : "#c7d2fe",
-                        }}
+                        className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold border shadow-sm ${
+                          isDark
+                            ? "bg-purple-900/30 text-purple-300 border-purple-800"
+                            : "bg-purple-50 text-purple-700 border-purple-200"
+                        }`}
                       >
                         {employee.division.name}
                       </span>
@@ -882,32 +829,11 @@ const Employees = () => {
                   <div className="flex flex-col xs:flex-row gap-2 xs:gap-2">
                     <button
                       onClick={() => handleView(employee)}
-                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4"
-                      style={{
-                        backgroundColor: isDark
-                          ? "rgba(31, 41, 55, 0.2)"
-                          : "#f8fafc",
-                        color: isDark ? "#d1d5db" : "#475569",
-                        borderColor: isDark ? "#374151" : "#e2e8f0",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(31, 41, 55, 0.3)"
-                          : "#f1f5f9";
-                        e.target.style.borderColor = isDark
-                          ? "#4b5563"
-                          : "#cbd5e1";
-                        e.target.style.color = isDark ? "#f3f4f6" : "#334155";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(31, 41, 55, 0.2)"
-                          : "#f8fafc";
-                        e.target.style.borderColor = isDark
-                          ? "#374151"
-                          : "#e2e8f0";
-                        e.target.style.color = isDark ? "#d1d5db" : "#475569";
-                      }}
+                      className={`flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 ${
+                        isDark
+                          ? "bg-gray-800/20 text-gray-300 border-gray-700 hover:bg-gray-800/30 hover:border-gray-600 hover:text-gray-200 focus:ring-gray-900/50"
+                          : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:border-slate-300 hover:text-slate-700 focus:ring-slate-100"
+                      }`}
                     >
                       <svg
                         className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
@@ -932,34 +858,11 @@ const Employees = () => {
                     </button>
                     <button
                       onClick={() => handleEdit(employee)}
-                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4"
-                      style={{
-                        backgroundColor: isDark
-                          ? "rgba(59, 130, 246, 0.2)"
-                          : "#eff6ff",
-                        color: isDark ? "#93c5fd" : "#1d4ed8",
-                        borderColor: isDark
-                          ? "rgba(59, 130, 246, 0.8)"
-                          : "#bfdbfe",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(59, 130, 246, 0.3)"
-                          : "#dbeafe";
-                        e.target.style.borderColor = isDark
-                          ? "#3b82f6"
-                          : "#93c5fd";
-                        e.target.style.color = isDark ? "#dbeafe" : "#1e40af";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(59, 130, 246, 0.2)"
-                          : "#eff6ff";
-                        e.target.style.borderColor = isDark
-                          ? "rgba(59, 130, 246, 0.8)"
-                          : "#bfdbfe";
-                        e.target.style.color = isDark ? "#93c5fd" : "#1d4ed8";
-                      }}
+                      className={`flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 ${
+                        isDark
+                          ? "bg-blue-900/20 text-blue-300 border-blue-800 hover:bg-blue-900/30 hover:border-blue-700 hover:text-blue-200 focus:ring-blue-900/50"
+                          : "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100 hover:border-blue-300 hover:text-blue-700 focus:ring-blue-100"
+                      }`}
                     >
                       <svg
                         className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
@@ -978,34 +881,11 @@ const Employees = () => {
                     </button>
                     <button
                       onClick={() => handleDelete(employee)}
-                      className="flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4"
-                      style={{
-                        backgroundColor: isDark
-                          ? "rgba(239, 68, 68, 0.2)"
-                          : "#fef2f2",
-                        color: isDark ? "#fca5a5" : "#dc2626",
-                        borderColor: isDark
-                          ? "rgba(239, 68, 68, 0.8)"
-                          : "#fecaca",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(239, 68, 68, 0.3)"
-                          : "#fee2e2";
-                        e.target.style.borderColor = isDark
-                          ? "#ef4444"
-                          : "#fca5a5";
-                        e.target.style.color = isDark ? "#fee2e2" : "#b91c1c";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.backgroundColor = isDark
-                          ? "rgba(239, 68, 68, 0.2)"
-                          : "#fef2f2";
-                        e.target.style.borderColor = isDark
-                          ? "rgba(239, 68, 68, 0.8)"
-                          : "#fecaca";
-                        e.target.style.color = isDark ? "#fca5a5" : "#dc2626";
-                      }}
+                      className={`flex-1 flex items-center justify-center px-2.5 sm:px-3 py-2 font-semibold text-xs sm:text-sm rounded-lg border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 ${
+                        isDark
+                          ? "bg-red-900/20 text-red-300 border-red-800 hover:bg-red-900/30 hover:border-red-700 hover:text-red-200 focus:ring-red-900/50"
+                          : "bg-red-50 text-red-600 border-red-200 hover:bg-red-100 hover:border-red-300 hover:text-red-700 focus:ring-red-100"
+                      }`}
                     >
                       <svg
                         className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1"
