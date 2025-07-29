@@ -272,13 +272,28 @@ const Employees = () => {
       </div>
 
       {/* Filters */}
-      <div className="card p-6">
+      <div
+        className="p-6 rounded-xl shadow-lg border"
+        style={{
+          backgroundColor: isDark
+            ? "rgba(17, 24, 39, 0.8)"
+            : "rgba(248, 250, 252, 0.9)",
+          borderColor: isDark
+            ? "rgba(75, 85, 99, 0.5)"
+            : "rgba(203, 213, 225, 0.7)",
+        }}
+      >
         <form
           onSubmit={handleSearch}
           className="grid grid-cols-1 md:grid-cols-4 gap-4"
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{
+                color: isDark ? "#d1d5db" : "#374151",
+              }}
+            >
               Search by Name
             </label>
             <input
@@ -290,7 +305,12 @@ const Employees = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              className="block text-sm font-medium mb-2"
+              style={{
+                color: isDark ? "#d1d5db" : "#374151",
+              }}
+            >
               Filter by Division
             </label>
             <select
@@ -358,7 +378,17 @@ const Employees = () => {
       </div>
 
       {/* Results */}
-      <div className="card p-4 sm:p-6 lg:p-8 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95 border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
+      <div
+        className="p-4 sm:p-6 lg:p-8 backdrop-blur-sm shadow-xl rounded-xl border"
+        style={{
+          backgroundColor: isDark
+            ? "rgba(17, 24, 39, 0.95)"
+            : "rgba(248, 250, 252, 0.95)",
+          borderColor: isDark
+            ? "rgba(75, 85, 99, 0.5)"
+            : "rgba(203, 213, 225, 0.7)",
+        }}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
           <div className="flex items-center space-x-3 sm:space-x-4">
             <div className="p-2.5 sm:p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg">
@@ -377,12 +407,27 @@ const Employees = () => {
               </svg>
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+              <h3
+                className="text-base sm:text-lg font-semibold"
+                style={{
+                  color: isDark ? "#ffffff" : "#111827",
+                }}
+              >
                 Employee Directory
               </h3>
-              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-0.5">
+              <p
+                className="text-xs sm:text-sm mt-0.5"
+                style={{
+                  color: isDark ? "#9ca3af" : "#64748b",
+                }}
+              >
                 Showing {pagination.from || 0} to {pagination.to || 0} of{" "}
-                <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                <span
+                  className="font-semibold"
+                  style={{
+                    color: isDark ? "#818cf8" : "#4f46e5",
+                  }}
+                >
                   {pagination.total}
                 </span>{" "}
                 employees
@@ -392,9 +437,24 @@ const Employees = () => {
 
           {employees.length > 0 && (
             <div className="flex items-center justify-center sm:justify-end">
-              <div className="flex items-center space-x-1 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-green-100 dark:bg-green-900/20 rounded-lg">
+              <div
+                className="flex items-center space-x-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(16, 185, 129, 0.1)"
+                    : "rgba(236, 253, 245, 0.8)",
+                  borderColor: isDark
+                    ? "rgba(16, 185, 129, 0.3)"
+                    : "rgba(16, 185, 129, 0.2)",
+                }}
+              >
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-medium text-green-700 dark:text-green-400">
+                <span
+                  className="text-xs font-medium"
+                  style={{
+                    color: isDark ? "#10b981" : "#047857",
+                  }}
+                >
                   Live Data
                 </span>
               </div>
@@ -405,12 +465,39 @@ const Employees = () => {
         {employees.length === 0 ? (
           <div className="text-center py-16">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-full blur-3xl opacity-30 scale-150"></div>
-              <div className="relative p-8 bg-gradient-to-br from-gray-50 to-indigo-50 dark:from-gray-800 dark:to-indigo-900/20 rounded-2xl border border-gray-200 dark:border-gray-700 mx-auto max-w-md">
+              <div
+                className="absolute inset-0 rounded-full blur-3xl opacity-30 scale-150"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(to right, rgba(79, 70, 229, 0.2), rgba(147, 51, 234, 0.2))"
+                    : "linear-gradient(to right, rgba(165, 180, 252, 0.3), rgba(196, 181, 253, 0.3))",
+                }}
+              ></div>
+              <div
+                className="relative p-8 rounded-2xl border mx-auto max-w-md"
+                style={{
+                  backgroundColor: isDark
+                    ? "rgba(17, 24, 39, 0.8)"
+                    : "rgba(248, 250, 252, 0.9)",
+                  borderColor: isDark
+                    ? "rgba(75, 85, 99, 0.5)"
+                    : "rgba(203, 213, 225, 0.7)",
+                }}
+              >
                 <div className="relative mb-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <div
+                    className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(to bottom right, rgba(79, 70, 229, 0.4), rgba(147, 51, 234, 0.4))"
+                        : "linear-gradient(to bottom right, rgba(165, 180, 252, 0.6), rgba(196, 181, 253, 0.6))",
+                    }}
+                  >
                     <svg
-                      className="w-10 h-10 text-indigo-500 dark:text-indigo-400"
+                      className="w-10 h-10"
+                      style={{
+                        color: isDark ? "#818cf8" : "#4f46e5",
+                      }}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -438,12 +525,22 @@ const Employees = () => {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3
+                  className="text-xl font-bold mb-3"
+                  style={{
+                    color: isDark ? "#ffffff" : "#111827",
+                  }}
+                >
                   {filters.name || filters.division_id
                     ? "No matching employees"
                     : "No employees yet"}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p
+                  className="mb-6 leading-relaxed"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#64748b",
+                  }}
+                >
                   {filters.name || filters.division_id
                     ? "We couldn't find any employees matching your search criteria. Try adjusting your filters or search terms."
                     : "Your employee directory is empty. Start building your team by adding your first employee."}
