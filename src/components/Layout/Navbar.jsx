@@ -509,17 +509,46 @@ const Navbar = ({ onMenuClick }) => {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 border border-gray-200 dark:border-gray-700">
+        <div
+          className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-[70] p-4"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+          }}
+        >
+          <div
+            className="rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 border"
+            style={{
+              background: isDark
+                ? "rgba(31, 41, 55, 0.95)"
+                : "rgba(255, 255, 255, 0.98)",
+              borderColor: isDark
+                ? "rgba(75, 85, 99, 0.6)"
+                : "rgba(219, 234, 254, 0.8)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center border border-red-200 dark:border-red-800">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center border"
+                  style={{
+                    background: isDark
+                      ? "rgba(239, 68, 68, 0.2)"
+                      : "rgba(254, 226, 226, 0.8)",
+                    borderColor: isDark
+                      ? "rgba(239, 68, 68, 0.4)"
+                      : "rgba(248, 113, 113, 0.6)",
+                  }}
+                >
                   <svg
-                    className="w-6 h-6 text-red-600 dark:text-red-400"
+                    className="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    style={{
+                      color: isDark ? "#f87171" : "#dc2626",
+                    }}
                   >
                     <path
                       strokeLinecap="round"
@@ -530,18 +559,33 @@ const Navbar = ({ onMenuClick }) => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Confirm Sign Out
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <h3
+                    className="text-lg font-semibold"
+                    style={{
+                      color: isDark ? "#f9fafb" : "#111827",
+                    }}
+                  >
                     Are you sure you want to sign out?
+                  </h3>
+                  <p
+                    className="text-sm"
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                  >
+                    This action will end your current session
                   </p>
                 </div>
               </div>
 
               {/* Content */}
               <div className="mb-6">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p
+                  className="leading-relaxed"
+                  style={{
+                    color: isDark ? "#d1d5db" : "#374151",
+                  }}
+                >
                   You will be redirected to the login page and will need to sign
                   in again to access your account.
                 </p>
@@ -553,7 +597,34 @@ const Navbar = ({ onMenuClick }) => {
                   type="button"
                   onClick={cancelLogout}
                   disabled={logoutLoading}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-200 dark:border-gray-600"
+                  className="px-6 py-3 text-sm font-medium rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  style={{
+                    background: isDark
+                      ? "rgba(75, 85, 99, 0.5)"
+                      : "rgba(243, 244, 246, 0.8)",
+                    color: isDark ? "#d1d5db" : "#374151",
+                    borderColor: isDark
+                      ? "rgba(75, 85, 99, 0.6)"
+                      : "rgba(209, 213, 219, 0.8)",
+                    focusRingColor: "#6b7280",
+                    focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!logoutLoading) {
+                      e.target.style.background = isDark
+                        ? "rgba(75, 85, 99, 0.7)"
+                        : "rgba(229, 231, 235, 0.9)";
+                      e.target.style.transform = "translateY(-1px)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!logoutLoading) {
+                      e.target.style.background = isDark
+                        ? "rgba(75, 85, 99, 0.5)"
+                        : "rgba(243, 244, 246, 0.8)";
+                      e.target.style.transform = "translateY(0)";
+                    }
+                  }}
                 >
                   Cancel
                 </button>
@@ -561,7 +632,39 @@ const Navbar = ({ onMenuClick }) => {
                   type="button"
                   onClick={confirmLogout}
                   disabled={logoutLoading}
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px] shadow-sm"
+                  className="px-6 py-3 text-sm font-medium text-white rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px] shadow-lg focus:outline-none focus:ring-4"
+                  style={{
+                    background: logoutLoading
+                      ? isDark
+                        ? "rgba(107, 114, 128, 0.5)"
+                        : "rgba(156, 163, 175, 0.5)"
+                      : "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)",
+                    boxShadow: logoutLoading
+                      ? "none"
+                      : isDark
+                      ? "0 10px 25px rgba(239, 68, 68, 0.25)"
+                      : "0 10px 25px rgba(239, 68, 68, 0.3)",
+                    focusRingColor: isDark
+                      ? "rgba(239, 68, 68, 0.6)"
+                      : "rgba(239, 68, 68, 0.4)",
+                    focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!logoutLoading) {
+                      e.target.style.transform = "translateY(-1px) scale(1.02)";
+                      e.target.style.boxShadow = isDark
+                        ? "0 15px 35px rgba(239, 68, 68, 0.35)"
+                        : "0 15px 35px rgba(239, 68, 68, 0.4)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!logoutLoading) {
+                      e.target.style.transform = "translateY(0) scale(1)";
+                      e.target.style.boxShadow = isDark
+                        ? "0 10px 25px rgba(239, 68, 68, 0.25)"
+                        : "0 10px 25px rgba(239, 68, 68, 0.3)";
+                    }
+                  }}
                 >
                   {logoutLoading ? (
                     <div className="flex items-center">
