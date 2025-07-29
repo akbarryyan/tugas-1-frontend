@@ -406,14 +406,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                       backgroundColor: !active
                         ? isDark
                           ? "rgba(79, 70, 229, 0.1)"
-                          : "rgba(239, 246, 255, 0.5)"
+                          : "transparent"
                         : undefined,
                     }}
                     onMouseEnter={(e) => {
                       if (!active) {
                         e.target.style.backgroundColor = isDark
                           ? "rgba(79, 70, 229, 0.2)"
-                          : "rgba(99, 102, 241, 0.15)";
+                          : "rgba(239, 246, 255, 0.8)";
                         e.target.style.boxShadow =
                           "0 2px 4px rgba(0, 0, 0, 0.05)";
                       }
@@ -422,7 +422,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                       if (!active) {
                         e.target.style.backgroundColor = isDark
                           ? "rgba(79, 70, 229, 0.1)"
-                          : "rgba(239, 246, 255, 0.5)";
+                          : "transparent";
                         e.target.style.boxShadow = "none";
                       }
                     }}
