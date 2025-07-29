@@ -1107,14 +1107,36 @@ const Employees = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in relative">
+          <div
+            className="backdrop-blur-xl rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border animate-scale-in relative"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(31, 41, 55, 0.95)"
+                : "rgba(255, 255, 255, 0.98)",
+              borderColor: isDark
+                ? "rgba(75, 85, 99, 0.5)"
+                : "rgba(219, 234, 254, 0.8)",
+            }}
+          >
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-indigo-600 dark:from-white dark:to-indigo-400 bg-clip-text text-transparent">
+                  <h2
+                    className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage: isDark
+                        ? "linear-gradient(to right, #ffffff, #a5b4fc)"
+                        : "linear-gradient(to right, #1f2937, #4f46e5)",
+                    }}
+                  >
                     {editingEmployee ? "Edit Employee" : "Add Employee"}
                   </h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <p
+                    className="text-sm mt-1"
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                  >
                     {editingEmployee
                       ? "Update employee information"
                       : "Add a new team member"}
@@ -1122,7 +1144,38 @@ const Employees = () => {
                 </div>
                 <button
                   onClick={resetForm}
-                  className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                  className="p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-4"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                    backgroundColor: "transparent",
+                    "--hover-bg": isDark
+                      ? "rgba(55, 65, 81, 0.5)"
+                      : "rgba(243, 244, 246, 0.8)",
+                    "--focus-ring": isDark
+                      ? "rgba(156, 163, 175, 0.3)"
+                      : "rgba(209, 213, 219, 0.5)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      e.currentTarget.style.getPropertyValue("--hover-bg");
+                    e.currentTarget.style.color = isDark
+                      ? "#d1d5db"
+                      : "#374151";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.color = isDark
+                      ? "#9ca3af"
+                      : "#6b7280";
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                      "--focus-ring"
+                    )}`;
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
                   <svg
                     className="w-6 h-6"
@@ -1143,50 +1196,155 @@ const Employees = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#d1d5db" : "#374151",
+                      }}
+                    >
                       Full Name *
                     </label>
                     <input
                       type="text"
                       required
-                      className="input-field"
+                      className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#ffffff",
+                        borderColor: isDark ? "#4b5563" : "#d1d5db",
+                        color: isDark ? "#ffffff" : "#111827",
+                        "--focus-border": isDark ? "#818cf8" : "#4f46e5",
+                        "--focus-ring": isDark
+                          ? "rgba(129, 140, 248, 0.2)"
+                          : "rgba(79, 70, 229, 0.1)",
+                      }}
                       value={formData.name}
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor =
+                          e.currentTarget.style.getPropertyValue(
+                            "--focus-border"
+                          );
+                        e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                          "--focus-ring"
+                        )}`;
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = isDark
+                          ? "#4b5563"
+                          : "#d1d5db";
+                        e.currentTarget.style.boxShadow =
+                          "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                      }}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#d1d5db" : "#374151",
+                      }}
+                    >
                       Phone Number *
                     </label>
                     <input
                       type="tel"
                       required
-                      className="input-field"
+                      className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#ffffff",
+                        borderColor: isDark ? "#4b5563" : "#d1d5db",
+                        color: isDark ? "#ffffff" : "#111827",
+                        "--focus-border": isDark ? "#818cf8" : "#4f46e5",
+                        "--focus-ring": isDark
+                          ? "rgba(129, 140, 248, 0.2)"
+                          : "rgba(79, 70, 229, 0.1)",
+                      }}
                       value={formData.phone}
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor =
+                          e.currentTarget.style.getPropertyValue(
+                            "--focus-border"
+                          );
+                        e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                          "--focus-ring"
+                        )}`;
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = isDark
+                          ? "#4b5563"
+                          : "#d1d5db";
+                        e.currentTarget.style.boxShadow =
+                          "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                      }}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#d1d5db" : "#374151",
+                      }}
+                    >
                       Division *
                     </label>
                     <select
                       required
-                      className="input-field"
+                      className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#ffffff",
+                        borderColor: isDark ? "#4b5563" : "#d1d5db",
+                        color: isDark ? "#ffffff" : "#111827",
+                        "--focus-border": isDark ? "#818cf8" : "#4f46e5",
+                        "--focus-ring": isDark
+                          ? "rgba(129, 140, 248, 0.2)"
+                          : "rgba(79, 70, 229, 0.1)",
+                      }}
                       value={formData.division}
                       onChange={(e) =>
                         setFormData({ ...formData, division: e.target.value })
                       }
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor =
+                          e.currentTarget.style.getPropertyValue(
+                            "--focus-border"
+                          );
+                        e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                          "--focus-ring"
+                        )}`;
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = isDark
+                          ? "#4b5563"
+                          : "#d1d5db";
+                        e.currentTarget.style.boxShadow =
+                          "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                      }}
                     >
-                      <option value="">Select Division</option>
+                      <option
+                        value=""
+                        style={{
+                          backgroundColor: isDark ? "#374151" : "#ffffff",
+                          color: isDark ? "#ffffff" : "#111827",
+                        }}
+                      >
+                        Select Division
+                      </option>
                       {divisions.map((division) => (
-                        <option key={division.id} value={division.id}>
+                        <option
+                          key={division.id}
+                          value={division.id}
+                          style={{
+                            backgroundColor: isDark ? "#374151" : "#ffffff",
+                            color: isDark ? "#ffffff" : "#111827",
+                          }}
+                        >
                           {division.name}
                         </option>
                       ))}
@@ -1194,33 +1352,94 @@ const Employees = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label
+                      className="block text-sm font-medium mb-2"
+                      style={{
+                        color: isDark ? "#d1d5db" : "#374151",
+                      }}
+                    >
                       Position *
                     </label>
                     <input
                       type="text"
                       required
-                      className="input-field"
+                      className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+                      style={{
+                        backgroundColor: isDark ? "#374151" : "#ffffff",
+                        borderColor: isDark ? "#4b5563" : "#d1d5db",
+                        color: isDark ? "#ffffff" : "#111827",
+                        "--focus-border": isDark ? "#818cf8" : "#4f46e5",
+                        "--focus-ring": isDark
+                          ? "rgba(129, 140, 248, 0.2)"
+                          : "rgba(79, 70, 229, 0.1)",
+                      }}
                       value={formData.position}
                       onChange={(e) =>
                         setFormData({ ...formData, position: e.target.value })
                       }
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor =
+                          e.currentTarget.style.getPropertyValue(
+                            "--focus-border"
+                          );
+                        e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                          "--focus-ring"
+                        )}`;
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = isDark
+                          ? "#4b5563"
+                          : "#d1d5db";
+                        e.currentTarget.style.boxShadow =
+                          "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                      }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label
+                    className="block text-sm font-medium mb-2"
+                    style={{
+                      color: isDark ? "#d1d5db" : "#374151",
+                    }}
+                  >
                     Photo URL
                   </label>
                   <input
                     type="url"
-                    className="input-field"
+                    className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
                     placeholder="https://example.com/photo.jpg"
+                    style={{
+                      backgroundColor: isDark ? "#374151" : "#ffffff",
+                      borderColor: isDark ? "#4b5563" : "#d1d5db",
+                      color: isDark ? "#ffffff" : "#111827",
+                      "--focus-border": isDark ? "#818cf8" : "#4f46e5",
+                      "--focus-ring": isDark
+                        ? "rgba(129, 140, 248, 0.2)"
+                        : "rgba(79, 70, 229, 0.1)",
+                      "--placeholder-color": isDark ? "#9ca3af" : "#6b7280",
+                    }}
                     value={formData.image}
                     onChange={(e) =>
                       setFormData({ ...formData, image: e.target.value })
                     }
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor =
+                        e.currentTarget.style.getPropertyValue(
+                          "--focus-border"
+                        );
+                      e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                        "--focus-ring"
+                      )}`;
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = isDark
+                        ? "#4b5563"
+                        : "#d1d5db";
+                      e.currentTarget.style.boxShadow =
+                        "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                    }}
                   />
                 </div>
 
@@ -1228,7 +1447,34 @@ const Employees = () => {
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="flex-1 flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+                    className="flex-1 flex items-center justify-center px-6 py-3 font-semibold rounded-xl border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4"
+                    style={{
+                      backgroundColor: isDark ? "#374151" : "#f1f5f9",
+                      borderColor: isDark ? "#4b5563" : "#cbd5e1",
+                      color: isDark ? "#d1d5db" : "#475569",
+                      "--hover-bg": isDark ? "#4b5563" : "#e2e8f0",
+                      "--focus-ring": isDark
+                        ? "rgba(156, 163, 175, 0.3)"
+                        : "rgba(148, 163, 184, 0.3)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        e.currentTarget.style.getPropertyValue("--hover-bg");
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = isDark
+                        ? "#374151"
+                        : "#f1f5f9";
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                        "--focus-ring"
+                      )}`;
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                    }}
                   >
                     <svg
                       className="w-4 h-4 mr-2"
