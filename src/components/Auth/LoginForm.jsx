@@ -8,8 +8,17 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [copyFeedback, setCopyFeedback] = useState("");
+  const [notification, setNotification] = useState(null);
   const { login } = useAuth();
   const { isDark } = useTheme();
+
+  // Show notification function
+  const showNotification = (type, message) => {
+    setNotification({ type, message });
+    setTimeout(() => {
+      setNotification(null);
+    }, 4000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,13 +26,28 @@ const LoginForm = () => {
     setLoading(true);
 
     try {
-      const result = login(formData.username, formData.password);
-      if (!result.success) {
-        setError(result.message);
+      // Simulate API loading delay for better UX
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // First validate credentials without setting user state
+      if (formData.username === "admin" && formData.password === "pastibisa") {
+        showNotification("success", "Login successful! Redirecting...");
+
+        // Delay the actual login to show notification first
+        setTimeout(() => {
+          const result = login(formData.username, formData.password);
+          setLoading(false);
+        }, 2000);
+      } else {
+        const errorMessage = "Invalid username or password!";
+        setError(errorMessage);
+        showNotification("error", errorMessage);
+        setLoading(false);
       }
     } catch (err) {
-      setError("An error occurred during login");
-    } finally {
+      const errorMessage = "An error occurred during login";
+      setError(errorMessage);
+      showNotification("error", errorMessage);
       setLoading(false);
     }
   };
@@ -420,6 +444,70 @@ const LoginForm = () => {
           </p>
         </div>
       </div>
+
+      {/* Custom Notification */}
+      {notification && (
+        <div className="fixed top-4 right-4 z-[60] animate-fade-in">
+          <div
+            className={`max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4 ${
+              notification.type === "success"
+                ? "bg-green-50 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200"
+                : "bg-red-50 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200"
+            }`}
+          >
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                {notification.type === "success" ? (
+                  <svg
+                    className="w-5 h-5 text-green-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium">{notification.message}</p>
+              </div>
+              <div className="ml-4 flex-shrink-0">
+                <button
+                  onClick={() => setNotification(null)}
+                  className="inline-flex text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
