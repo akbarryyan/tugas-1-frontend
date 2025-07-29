@@ -71,11 +71,26 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900">
+    <div
+      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      style={{
+        background: isDark
+          ? "linear-gradient(135deg, #1f2937 0%, #111827 100%)"
+          : "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+      }}
+    >
       <div className="max-w-md w-full space-y-8 animate-fade-in">
         <div className="text-center">
           {/* Enhanced Company Logo */}
-          <div className="mx-auto h-20 w-20 bg-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+          <div
+            className="mx-auto h-20 w-20 rounded-2xl flex items-center justify-center mb-8 shadow-2xl transform hover:scale-105 transition-transform duration-300"
+            style={{
+              background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+              boxShadow: isDark
+                ? "0 20px 40px rgba(99, 102, 241, 0.3)"
+                : "0 20px 40px rgba(99, 102, 241, 0.4)",
+            }}
+          >
             <svg
               className="h-10 w-10 text-white"
               fill="none"
@@ -91,18 +106,50 @@ const LoginForm = () => {
             </svg>
           </div>
 
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
+          <h2
+            className="text-4xl font-bold"
+            style={{
+              color: isDark ? "#ffffff" : "#111827",
+            }}
+          >
             Employee Management
           </h2>
-          <p className="mt-3 text-gray-600 dark:text-gray-400 text-lg">
+          <p
+            className="mt-3 text-lg"
+            style={{
+              color: isDark ? "#9ca3af" : "#6b7280",
+            }}
+          >
             Sign in to access your dashboard
           </p>
         </div>
 
-        <div className="card p-8 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 shadow-2xl">
+        <div
+          className="rounded-2xl p-8 shadow-2xl border"
+          style={{
+            background: isDark
+              ? "rgba(31, 41, 55, 0.9)"
+              : "rgba(255, 255, 255, 0.95)",
+            borderColor: isDark
+              ? "rgba(75, 85, 99, 0.6)"
+              : "rgba(219, 234, 254, 0.8)",
+            backdropFilter: "blur(10px)",
+          }}
+        >
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="animate-scale-in bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm shadow-lg">
+              <div
+                className="animate-scale-in border-2 px-4 py-3 rounded-xl text-sm shadow-lg"
+                style={{
+                  background: isDark
+                    ? "rgba(239, 68, 68, 0.1)"
+                    : "rgba(254, 242, 242, 0.8)",
+                  borderColor: isDark
+                    ? "rgba(239, 68, 68, 0.4)"
+                    : "rgba(248, 113, 113, 0.6)",
+                  color: isDark ? "#fca5a5" : "#dc2626",
+                }}
+              >
                 <div className="flex items-center">
                   <svg
                     className="w-5 h-5 mr-2"
@@ -124,17 +171,23 @@ const LoginForm = () => {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold mb-2"
+                  style={{
+                    color: isDark ? "#d1d5db" : "#374151",
+                  }}
                 >
                   Username
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none z-10">
                     <svg
-                      className="h-5 w-5 text-gray-400"
+                      className="h-5 w-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
                     >
                       <path
                         strokeLinecap="round"
@@ -149,7 +202,18 @@ const LoginForm = () => {
                     name="username"
                     type="text"
                     required
-                    className="w-full px-3 py-3 pl-12 pr-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-3 py-3 pl-12 pr-4 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{
+                      background: isDark
+                        ? "rgba(55, 65, 81, 0.5)"
+                        : "rgba(255, 255, 255, 0.8)",
+                      borderColor: isDark
+                        ? "rgba(75, 85, 99, 0.6)"
+                        : "rgba(209, 213, 219, 0.8)",
+                      color: isDark ? "#f9fafb" : "#111827",
+                      focusRingColor: "#6366f1",
+                      focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+                    }}
                     placeholder="Enter your username"
                     value={formData.username}
                     onChange={handleChange}
@@ -160,17 +224,23 @@ const LoginForm = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold mb-2"
+                  style={{
+                    color: isDark ? "#d1d5db" : "#374151",
+                  }}
                 >
                   Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none z-10">
                     <svg
-                      className="h-5 w-5 text-gray-400"
+                      className="h-5 w-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
                     >
                       <path
                         strokeLinecap="round"
@@ -185,19 +255,39 @@ const LoginForm = () => {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
-                    className="w-full px-3 py-3 pl-12 pr-12 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-3 py-3 pl-12 pr-12 border rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style={{
+                      background: isDark
+                        ? "rgba(55, 65, 81, 0.5)"
+                        : "rgba(255, 255, 255, 0.8)",
+                      borderColor: isDark
+                        ? "rgba(75, 85, 99, 0.6)"
+                        : "rgba(209, 213, 219, 0.8)",
+                      color: isDark ? "#f9fafb" : "#111827",
+                      focusRingColor: "#6366f1",
+                      focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+                    }}
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleChange}
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 flex items-center pr-3 z-10"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 z-10 transition-colors duration-200"
                     onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = isDark ? "#d1d5db" : "#374151";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = isDark ? "#9ca3af" : "#6b7280";
+                    }}
                   >
                     {showPassword ? (
                       <svg
-                        className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
+                        className="h-5 w-5 transition-colors duration-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -211,7 +301,7 @@ const LoginForm = () => {
                       </svg>
                     ) : (
                       <svg
-                        className="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200"
+                        className="h-5 w-5 transition-colors duration-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -238,7 +328,42 @@ const LoginForm = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-lg py-4"
+              className="w-full text-lg py-4 font-semibold rounded-xl shadow-lg transition-all duration-200 disabled:cursor-not-allowed focus:outline-none focus:ring-4"
+              style={{
+                background: loading
+                  ? isDark
+                    ? "rgba(107, 114, 128, 0.5)"
+                    : "rgba(156, 163, 175, 0.5)"
+                  : "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                color: "white",
+                opacity: loading ? 0.5 : 1,
+                transform: loading ? "none" : "scale(1)",
+                boxShadow: loading
+                  ? "none"
+                  : isDark
+                  ? "0 10px 25px rgba(99, 102, 241, 0.25)"
+                  : "0 10px 25px rgba(99, 102, 241, 0.3)",
+                focusRingColor: isDark
+                  ? "rgba(99, 102, 241, 0.6)"
+                  : "rgba(99, 102, 241, 0.4)",
+                focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  e.target.style.transform = "translateY(-2px) scale(1.02)";
+                  e.target.style.boxShadow = isDark
+                    ? "0 15px 35px rgba(99, 102, 241, 0.35)"
+                    : "0 15px 35px rgba(99, 102, 241, 0.4)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) {
+                  e.target.style.transform = "translateY(0) scale(1)";
+                  e.target.style.boxShadow = isDark
+                    ? "0 10px 25px rgba(99, 102, 241, 0.25)"
+                    : "0 10px 25px rgba(99, 102, 241, 0.3)";
+                }
+              }}
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -265,16 +390,39 @@ const LoginForm = () => {
               )}
             </button>
 
-            <div className="mt-8 p-4 sm:p-6 bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 dark:from-indigo-900/30 dark:via-purple-900/30 dark:to-blue-900/30 rounded-2xl border-2 border-indigo-200/50 dark:border-indigo-700/50 shadow-xl backdrop-blur-sm">
+            <div
+              className="mt-8 p-4 sm:p-6 rounded-2xl border-2 shadow-xl backdrop-blur-sm"
+              style={{
+                background: isDark
+                  ? "linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(147, 51, 234, 0.1) 50%, rgba(59, 130, 246, 0.1) 100%)"
+                  : "linear-gradient(135deg, rgba(249, 250, 251, 0.9) 0%, rgba(243, 244, 246, 0.9) 50%, rgba(239, 246, 255, 0.9) 100%)",
+                borderColor: isDark
+                  ? "rgba(99, 102, 241, 0.3)"
+                  : "rgba(219, 234, 254, 0.8)",
+              }}
+            >
               {/* Copy Feedback */}
               {copyFeedback && (
-                <div className="mb-4 p-3 bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-300 dark:border-emerald-700 rounded-lg text-center">
+                <div
+                  className="mb-4 p-3 border rounded-lg text-center"
+                  style={{
+                    background: isDark
+                      ? "rgba(5, 150, 105, 0.2)"
+                      : "rgba(236, 253, 245, 0.8)",
+                    borderColor: isDark
+                      ? "rgba(5, 150, 105, 0.4)"
+                      : "rgba(167, 243, 208, 0.8)",
+                  }}
+                >
                   <div className="flex items-center justify-center space-x-2">
                     <svg
-                      className="w-4 h-4 text-emerald-600 dark:text-emerald-400"
+                      className="w-4 h-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      style={{
+                        color: isDark ? "#6ee7b7" : "#059669",
+                      }}
                     >
                       <path
                         strokeLinecap="round"
@@ -283,7 +431,12 @@ const LoginForm = () => {
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                    <span
+                      className="text-sm font-medium"
+                      style={{
+                        color: isDark ? "#6ee7b7" : "#047857",
+                      }}
+                    >
                       {copyFeedback}
                     </span>
                   </div>
@@ -310,10 +463,25 @@ const LoginForm = () => {
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800 animate-pulse"></div>
                 </div>
                 <div className="ml-3 min-w-0 flex-1">
-                  <p className="text-base font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 dark:from-indigo-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+                  <p
+                    className="text-base font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 dark:from-indigo-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(to right, #a5b4fc, #c4b5fd, #93c5fd)"
+                        : "linear-gradient(to right, #4f46e5, #7c3aed, #2563eb)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
                     Demo Credentials
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
+                  <p
+                    className="text-xs mt-1 truncate"
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                  >
                     Use these credentials to test the application
                   </p>
                 </div>
@@ -321,8 +489,25 @@ const LoginForm = () => {
 
               <div className="space-y-3">
                 <div className="group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-indigo-50/80 dark:from-gray-800/80 dark:to-indigo-900/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-indigo-200/50 dark:border-indigo-700/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]">
+                  <div
+                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(to right, rgba(31, 41, 55, 0.8), rgba(79, 70, 229, 0.2))"
+                        : "linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(239, 246, 255, 0.8))",
+                    }}
+                  ></div>
+                  <div
+                    className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]"
+                    style={{
+                      background: isDark
+                        ? "rgba(55, 65, 81, 0.6)"
+                        : "rgba(255, 255, 255, 0.6)",
+                      borderColor: isDark
+                        ? "rgba(99, 102, 241, 0.3)"
+                        : "rgba(219, 234, 254, 0.8)",
+                    }}
+                  >
                     <div className="flex items-center space-x-3 mb-2 sm:mb-0">
                       <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
                         <svg
@@ -339,7 +524,12 @@ const LoginForm = () => {
                           />
                         </svg>
                       </div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+                      <span
+                        className="font-semibold text-sm sm:text-base"
+                        style={{
+                          color: isDark ? "#d1d5db" : "#374151",
+                        }}
+                      >
                         Username:
                       </span>
                     </div>
@@ -349,9 +539,18 @@ const LoginForm = () => {
                       </code>
                       <button
                         type="button"
-                        className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 flex-shrink-0"
+                        className="p-2 transition-colors duration-200 flex-shrink-0"
                         onClick={() => handleCopy("admin", "Username")}
                         title="Copy username"
+                        style={{
+                          color: isDark ? "#9ca3af" : "#6b7280",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.color = isDark ? "#6366f1" : "#4f46e5";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.color = isDark ? "#9ca3af" : "#6b7280";
+                        }}
                       >
                         <svg
                           className="w-4 h-4"
@@ -372,8 +571,25 @@ const LoginForm = () => {
                 </div>
 
                 <div className="group relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/80 to-purple-50/80 dark:from-gray-800/80 dark:to-purple-900/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-purple-200/50 dark:border-purple-700/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]">
+                  <div
+                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(to right, rgba(31, 41, 55, 0.8), rgba(147, 51, 234, 0.2))"
+                        : "linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(250, 245, 255, 0.8))",
+                    }}
+                  ></div>
+                  <div
+                    className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg group-hover:scale-[1.02]"
+                    style={{
+                      background: isDark
+                        ? "rgba(55, 65, 81, 0.6)"
+                        : "rgba(255, 255, 255, 0.6)",
+                      borderColor: isDark
+                        ? "rgba(147, 51, 234, 0.3)"
+                        : "rgba(233, 213, 255, 0.8)",
+                    }}
+                  >
                     <div className="flex items-center space-x-3 mb-2 sm:mb-0">
                       <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
                         <svg
@@ -390,7 +606,12 @@ const LoginForm = () => {
                           />
                         </svg>
                       </div>
-                      <span className="font-semibold text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+                      <span
+                        className="font-semibold text-sm sm:text-base"
+                        style={{
+                          color: isDark ? "#d1d5db" : "#374151",
+                        }}
+                      >
                         Password:
                       </span>
                     </div>
@@ -400,9 +621,18 @@ const LoginForm = () => {
                       </code>
                       <button
                         type="button"
-                        className="p-2 text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 flex-shrink-0"
+                        className="p-2 transition-colors duration-200 flex-shrink-0"
                         onClick={() => handleCopy("pastibisa", "Password")}
                         title="Copy password"
+                        style={{
+                          color: isDark ? "#9ca3af" : "#6b7280",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.color = isDark ? "#a855f7" : "#7c2d12";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.color = isDark ? "#9ca3af" : "#6b7280";
+                        }}
                       >
                         <svg
                           className="w-4 h-4"
@@ -423,25 +653,43 @@ const LoginForm = () => {
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-indigo-200/50 dark:border-indigo-700/50">
-                <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-2 text-xs text-gray-500 dark:text-gray-400">
+              <div
+                className="mt-4 pt-4"
+                style={{
+                  borderTop: isDark
+                    ? "1px solid rgba(99, 102, 241, 0.3)"
+                    : "1px solid rgba(219, 234, 254, 0.8)",
+                }}
+              >
+                <div className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-2 text-xs">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                    <span>Ready for testing</span>
+                    <span
+                      style={{
+                        color: isDark ? "#9ca3af" : "#6b7280",
+                      }}
+                    >
+                      Ready for testing
+                    </span>
                   </div>
-                  <div className="hidden sm:block w-1 h-1 bg-gray-400 rounded-full"></div>
-                  <span className="text-center">Click to copy credentials</span>
+                  <div
+                    className="hidden sm:block w-1 h-1 rounded-full"
+                    style={{
+                      backgroundColor: isDark ? "#6b7280" : "#9ca3af",
+                    }}
+                  ></div>
+                  <span
+                    className="text-center"
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                  >
+                    Click to copy credentials
+                  </span>
                 </div>
               </div>
             </div>
           </form>
-        </div>
-
-        {/* Footer */}
-        <div className="text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Built with ❤️ for Employee Management
-          </p>
         </div>
       </div>
 
@@ -449,19 +697,39 @@ const LoginForm = () => {
       {notification && (
         <div className="fixed top-4 right-4 z-[60] animate-fade-in">
           <div
-            className={`max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4 ${
-              notification.type === "success"
-                ? "bg-green-50 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200"
-                : "bg-red-50 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200"
-            }`}
+            className="max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4"
+            style={{
+              background:
+                notification.type === "success"
+                  ? isDark
+                    ? "rgba(5, 46, 22, 0.9)"
+                    : "rgba(240, 253, 244, 0.95)"
+                  : isDark
+                  ? "rgba(69, 10, 10, 0.9)"
+                  : "rgba(254, 242, 242, 0.95)",
+              borderLeftColor:
+                notification.type === "success" ? "#10b981" : "#ef4444",
+              color:
+                notification.type === "success"
+                  ? isDark
+                    ? "#86efac"
+                    : "#065f46"
+                  : isDark
+                  ? "#fca5a5"
+                  : "#991b1b",
+              backdropFilter: "blur(10px)",
+            }}
           >
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 {notification.type === "success" ? (
                   <svg
-                    className="w-5 h-5 text-green-500"
+                    className="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
+                    style={{
+                      color: "#10b981",
+                    }}
                   >
                     <path
                       fillRule="evenodd"
@@ -471,9 +739,12 @@ const LoginForm = () => {
                   </svg>
                 ) : (
                   <svg
-                    className="w-5 h-5 text-red-500"
+                    className="w-5 h-5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
+                    style={{
+                      color: "#ef4444",
+                    }}
                   >
                     <path
                       fillRule="evenodd"
@@ -489,7 +760,18 @@ const LoginForm = () => {
               <div className="ml-4 flex-shrink-0">
                 <button
                   onClick={() => setNotification(null)}
-                  className="inline-flex text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                  className="inline-flex rounded-md p-1.5 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  style={{
+                    color: isDark ? "#9ca3af" : "#6b7280",
+                    focusRingColor: "#6366f1",
+                    focusRingOffsetColor: isDark ? "#1f2937" : "#ffffff",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = isDark ? "#d1d5db" : "#374151";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = isDark ? "#9ca3af" : "#6b7280";
+                  }}
                 >
                   <svg
                     className="w-4 h-4"
