@@ -165,8 +165,8 @@ const Navbar = ({ onMenuClick }) => {
               onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
               className="btn-ghost p-2 relative text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
               style={{
-              color: isDark ? "#ffffff" : "#111827",
-            }}
+                color: isDark ? "#ffffff" : "#111827",
+              }}
               aria-label="Theme Switcher"
             >
               {getThemeIcon(theme)}
@@ -223,10 +223,20 @@ const Navbar = ({ onMenuClick }) => {
                 </span>
               </div>
               <div className="hidden md:block text-left">
-                <p className="font-medium text-gray-900 dark:text-gray-100">
+                <p
+                  className="font-medium text-gray-900 dark:text-gray-100"
+                  style={{
+                    color: isDark ? "#ffffff" : "#111827",
+                  }}
+                >
                   {user?.name}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p
+                  className="text-xs text-gray-500 dark:text-gray-400"
+                  style={{
+                    color: isDark ? "#ffffff" : "#111827",
+                  }}
+                >
                   {user?.email}
                 </p>
               </div>
@@ -246,10 +256,20 @@ const Navbar = ({ onMenuClick }) => {
             {userDropdownOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-50">
                 <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                  <p
+                    className="text-sm font-medium text-gray-900 dark:text-gray-100"
+                    style={{
+                      color: isDark ? "#ffffff" : "#111827",
+                    }}
+                  >
                     {user?.name}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p
+                    className="text-sm text-gray-500 dark:text-gray-400"
+                    style={{
+                      color: isDark ? "#ffffff" : "#111827",
+                    }}
+                  >
                     {user?.email}
                   </p>
                 </div>
