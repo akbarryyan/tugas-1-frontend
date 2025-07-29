@@ -637,25 +637,67 @@ const Employees = () => {
                     : "Your employee directory is empty. Start building your team by adding your first employee."}
                 </p>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <button
                     onClick={() => setShowModal(true)}
-                    className="w-full btn-primary text-sm py-3 shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                    style={{
+                      background: isDark
+                        ? "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)"
+                        : "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+                      border: "none",
+                      borderRadius: "16px",
+                      color: "white",
+                      fontSize: "0.875rem",
+                      fontWeight: "600",
+                      padding: "14px 20px",
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "8px",
+                      cursor: "pointer",
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                      boxShadow: isDark
+                        ? "0 10px 25px rgba(99, 102, 241, 0.25), 0 4px 12px rgba(79, 70, 229, 0.15)"
+                        : "0 10px 25px rgba(99, 102, 241, 0.3), 0 4px 12px rgba(139, 92, 246, 0.2)",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.transform = "translateY(-2px) scale(1.02)";
+                      e.target.style.boxShadow = isDark
+                        ? "0 15px 35px rgba(99, 102, 241, 0.35), 0 6px 16px rgba(79, 70, 229, 0.25)"
+                        : "0 15px 35px rgba(99, 102, 241, 0.4), 0 6px 16px rgba(139, 92, 246, 0.3)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.transform = "translateY(0) scale(1)";
+                      e.target.style.boxShadow = isDark
+                        ? "0 10px 25px rgba(99, 102, 241, 0.25), 0 4px 12px rgba(79, 70, 229, 0.15)"
+                        : "0 10px 25px rgba(99, 102, 241, 0.3), 0 4px 12px rgba(139, 92, 246, 0.2)";
+                    }}
+                    onMouseDown={(e) => {
+                      e.target.style.transform = "translateY(0) scale(0.98)";
+                    }}
+                    onMouseUp={(e) => {
+                      e.target.style.transform = "translateY(-2px) scale(1.02)";
+                    }}
                   >
                     <svg
-                      className="w-4 h-4 mr-2"
+                      className="w-4 h-4 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
+                      strokeWidth={2.5}
                     >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                       />
                     </svg>
-                    Add First Employee
+                    <span className="whitespace-nowrap">
+                      Add First Employee
+                    </span>
                   </button>
 
                   {(filters.name || filters.division_id) && (
@@ -664,22 +706,79 @@ const Employees = () => {
                         setFilters({ name: "", division_id: "" });
                         setPagination((prev) => ({ ...prev, current_page: 1 }));
                       }}
-                      className="w-full btn-outline text-sm py-3"
+                      style={{
+                        background: isDark
+                          ? "rgba(31, 41, 55, 0.8)"
+                          : "rgba(255, 255, 255, 0.9)",
+                        border: isDark
+                          ? "2px solid rgba(99, 102, 241, 0.6)"
+                          : "2px solid rgba(99, 102, 241, 0.8)",
+                        borderRadius: "14px",
+                        color: isDark ? "#e5e7eb" : "#374151",
+                        fontSize: "0.875rem",
+                        fontWeight: "500",
+                        padding: "12px 18px",
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "8px",
+                        cursor: "pointer",
+                        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                        boxShadow: isDark
+                          ? "0 4px 12px rgba(0, 0, 0, 0.25)"
+                          : "0 4px 12px rgba(0, 0, 0, 0.1)",
+                        backdropFilter: "blur(10px)",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.target.style.background = isDark
+                          ? "rgba(99, 102, 241, 0.15)"
+                          : "rgba(99, 102, 241, 0.05)";
+                        e.target.style.borderColor = isDark
+                          ? "rgba(99, 102, 241, 0.8)"
+                          : "rgba(99, 102, 241, 1)";
+                        e.target.style.transform =
+                          "translateY(-1px) scale(1.01)";
+                        e.target.style.boxShadow = isDark
+                          ? "0 6px 18px rgba(0, 0, 0, 0.35)"
+                          : "0 6px 18px rgba(0, 0, 0, 0.15)";
+                        e.target.style.color = isDark ? "#f3f4f6" : "#1f2937";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.target.style.background = isDark
+                          ? "rgba(31, 41, 55, 0.8)"
+                          : "rgba(255, 255, 255, 0.9)";
+                        e.target.style.borderColor = isDark
+                          ? "rgba(99, 102, 241, 0.6)"
+                          : "rgba(99, 102, 241, 0.8)";
+                        e.target.style.transform = "translateY(0) scale(1)";
+                        e.target.style.boxShadow = isDark
+                          ? "0 4px 12px rgba(0, 0, 0, 0.25)"
+                          : "0 4px 12px rgba(0, 0, 0, 0.1)";
+                        e.target.style.color = isDark ? "#e5e7eb" : "#374151";
+                      }}
+                      onMouseDown={(e) => {
+                        e.target.style.transform = "translateY(0) scale(0.98)";
+                      }}
+                      onMouseUp={(e) => {
+                        e.target.style.transform =
+                          "translateY(-1px) scale(1.01)";
+                      }}
                     >
                       <svg
-                        className="w-4 h-4 mr-2"
+                        className="w-4 h-4 flex-shrink-0"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
+                        strokeWidth={2}
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          strokeWidth={2}
                           d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                         />
                       </svg>
-                      Clear Filters
+                      <span className="whitespace-nowrap">Clear Filters</span>
                     </button>
                   )}
                 </div>
