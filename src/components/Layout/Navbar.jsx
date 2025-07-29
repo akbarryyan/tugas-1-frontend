@@ -140,7 +140,19 @@ const Navbar = ({ onMenuClick }) => {
 
         {/* Page Title */}
         <div className="hidden lg:block">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          {/* Debug info - akan dihapus nanti */}
+          {console.log("Navbar Debug:", {
+            theme,
+            isDark,
+            htmlHasDarkClass:
+              document.documentElement.classList.contains("dark"),
+          })}
+          <h1
+            className="text-2xl font-semibold"
+            style={{
+              color: isDark ? "#ffffff" : "#111827", // white di dark, gray-900 di light
+            }}
+          >
             Employee Management System
           </h1>
         </div>
@@ -151,7 +163,10 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setThemeDropdownOpen(!themeDropdownOpen)}
-              className="btn-ghost p-2 relative"
+              className="btn-ghost p-2 relative text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+              style={{
+              color: isDark ? "#ffffff" : "#111827",
+            }}
               aria-label="Theme Switcher"
             >
               {getThemeIcon(theme)}
@@ -196,9 +211,9 @@ const Navbar = ({ onMenuClick }) => {
           <div className="relative">
             <button
               onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 p-2 transition-colors duration-200"
+              className="flex items-center space-x-3 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 p-2 transition-colors duration-200 border border-transparent hover:border-gray-200 dark:hover:border-gray-600"
             >
-              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center shadow-sm">
                 <span className="text-white font-medium text-sm">
                   {user?.name
                     ?.split(" ")
@@ -208,25 +223,15 @@ const Navbar = ({ onMenuClick }) => {
                 </span>
               </div>
               <div className="hidden md:block text-left">
-                <p
-                  className="font-medium"
-                  style={{
-                    color: isDark ? "#f3f4f6" : "#000000",
-                  }}
-                >
+                <p className="font-medium text-gray-900 dark:text-gray-100">
                   {user?.name}
                 </p>
-                <p
-                  className="text-xs"
-                  style={{
-                    color: isDark ? "#9ca3af" : "#6b7280",
-                  }}
-                >
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {user?.email}
                 </p>
               </div>
               <svg
-                className="w-4 h-4 text-gray-600 dark:text-gray-400"
+                className="w-4 h-4 text-gray-500 dark:text-gray-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -300,7 +305,7 @@ const Navbar = ({ onMenuClick }) => {
       {/* Mobile Overlay */}
       {(userDropdownOpen || themeDropdownOpen) && (
         <div
-          className="fixed inset-0 z-40 bg-black/20 lg:bg-transparent"
+          className="fixed inset-0 z-40 bg-black/30 lg:bg-transparent"
           onClick={() => {
             setUserDropdownOpen(false);
             setThemeDropdownOpen(false);
@@ -310,12 +315,12 @@ const Navbar = ({ onMenuClick }) => {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[70] p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 transform transition-all duration-300 border border-gray-200 dark:border-gray-700">
             <div className="p-6">
               {/* Header */}
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center border border-red-200 dark:border-red-800">
                   <svg
                     className="w-6 h-6 text-red-600 dark:text-red-400"
                     fill="none"
@@ -334,7 +339,7 @@ const Navbar = ({ onMenuClick }) => {
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     Confirm Sign Out
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     Are you sure you want to sign out?
                   </p>
                 </div>
@@ -342,7 +347,7 @@ const Navbar = ({ onMenuClick }) => {
 
               {/* Content */}
               <div className="mb-6">
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   You will be redirected to the login page and will need to sign
                   in again to access your account.
                 </p>
@@ -354,7 +359,7 @@ const Navbar = ({ onMenuClick }) => {
                   type="button"
                   onClick={cancelLogout}
                   disabled={logoutLoading}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-gray-200 dark:border-gray-600"
                 >
                   Cancel
                 </button>
@@ -362,7 +367,7 @@ const Navbar = ({ onMenuClick }) => {
                   type="button"
                   onClick={confirmLogout}
                   disabled={logoutLoading}
-                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px] shadow-sm"
                 >
                   {logoutLoading ? (
                     <div className="flex items-center">
@@ -383,17 +388,17 @@ const Navbar = ({ onMenuClick }) => {
       {notification && (
         <div className="fixed top-4 right-4 z-[80] animate-fade-in">
           <div
-            className={`max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4 ${
+            className={`max-w-sm w-full rounded-lg shadow-2xl border-l-4 p-4 border ${
               notification.type === "success"
-                ? "bg-green-50 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200"
-                : "bg-red-50 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200"
+                ? "bg-green-50 dark:bg-green-900 border-l-green-500 border-green-200 dark:border-green-700 text-green-800 dark:text-green-200"
+                : "bg-red-50 dark:bg-red-900 border-l-red-500 border-red-200 dark:border-red-700 text-red-800 dark:text-red-200"
             }`}
           >
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 {notification.type === "success" ? (
                   <svg
-                    className="w-5 h-5 text-green-500"
+                    className="w-5 h-5 text-green-600 dark:text-green-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -405,7 +410,7 @@ const Navbar = ({ onMenuClick }) => {
                   </svg>
                 ) : (
                   <svg
-                    className="w-5 h-5 text-red-500"
+                    className="w-5 h-5 text-red-600 dark:text-red-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -423,7 +428,7 @@ const Navbar = ({ onMenuClick }) => {
               <div className="ml-4 flex-shrink-0">
                 <button
                   onClick={() => setNotification(null)}
-                  className="inline-flex text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                  className="inline-flex text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 rounded-sm p-1 transition-colors duration-200"
                 >
                   <svg
                     className="w-4 h-4"
