@@ -1534,12 +1534,32 @@ const Employees = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
-          <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl max-w-md w-full shadow-2xl border border-gray-200/50 dark:border-gray-700/50 animate-scale-in">
+          <div
+            className="backdrop-blur-xl rounded-2xl max-w-md w-full shadow-2xl border animate-scale-in"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(31, 41, 55, 0.95)"
+                : "rgba(255, 255, 255, 0.98)",
+              borderColor: isDark
+                ? "rgba(75, 85, 99, 0.5)"
+                : "rgba(219, 234, 254, 0.8)",
+            }}
+          >
             <div className="p-6">
               <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mr-4">
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
+                  style={{
+                    backgroundColor: isDark
+                      ? "rgba(239, 68, 68, 0.2)"
+                      : "rgba(254, 226, 226, 0.8)",
+                  }}
+                >
                   <svg
-                    className="w-6 h-6 text-red-600 dark:text-red-400"
+                    className="w-6 h-6"
+                    style={{
+                      color: isDark ? "#f87171" : "#dc2626",
+                    }}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -1553,19 +1573,39 @@ const Employees = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3
+                    className="text-lg font-semibold"
+                    style={{
+                      color: isDark ? "#ffffff" : "#111827",
+                    }}
+                  >
                     Delete Employee
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p
+                    className="text-sm"
+                    style={{
+                      color: isDark ? "#9ca3af" : "#6b7280",
+                    }}
+                  >
                     This action cannot be undone
                   </p>
                 </div>
               </div>
 
               <div className="mb-6 sm:mb-8">
-                <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
+                <p
+                  className="text-sm sm:text-base leading-relaxed"
+                  style={{
+                    color: isDark ? "#d1d5db" : "#374151",
+                  }}
+                >
                   Are you sure you want to delete{" "}
-                  <span className="font-semibold text-gray-900 dark:text-white">
+                  <span
+                    className="font-semibold"
+                    style={{
+                      color: isDark ? "#ffffff" : "#111827",
+                    }}
+                  >
                     {deletingEmployee?.name}
                   </span>
                   ? This will permanently remove the employee from your records.
@@ -1577,7 +1617,34 @@ const Employees = () => {
                   type="button"
                   onClick={cancelDelete}
                   disabled={deleteLoading}
-                  className="flex-1 flex items-center justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 min-h-[48px] touch-manipulation"
+                  className="flex-1 flex items-center justify-center px-4 sm:px-6 py-3 sm:py-2.5 font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl border shadow-sm hover:shadow-md transform hover:scale-[1.02] disabled:transform-none disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-4 min-h-[48px] touch-manipulation"
+                  style={{
+                    backgroundColor: isDark ? "#374151" : "#f1f5f9",
+                    borderColor: isDark ? "#4b5563" : "#cbd5e1",
+                    color: isDark ? "#d1d5db" : "#475569",
+                    "--hover-bg": isDark ? "#4b5563" : "#e2e8f0",
+                    "--focus-ring": isDark
+                      ? "rgba(156, 163, 175, 0.3)"
+                      : "rgba(148, 163, 184, 0.3)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      e.currentTarget.style.getPropertyValue("--hover-bg");
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = isDark
+                      ? "#374151"
+                      : "#f1f5f9";
+                  }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.boxShadow = `0 0 0 4px ${e.currentTarget.style.getPropertyValue(
+                      "--focus-ring"
+                    )}`;
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.boxShadow =
+                      "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+                  }}
                 >
                   <svg
                     className="w-4 h-4 mr-2 sm:mr-1.5"
