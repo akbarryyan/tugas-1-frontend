@@ -4,8 +4,10 @@ import {
   employeesService,
   divisionsService,
 } from "../services/employeeService";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Employees = () => {
+  const { isDark } = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const [employees, setEmployees] = useState([]);
   const [divisions, setDivisions] = useState([]);
@@ -231,10 +233,20 @@ const Employees = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h1
+            className="text-3xl font-bold"
+            style={{
+              color: isDark ? "#ffffff" : "#111827",
+            }}
+          >
             Employees
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p
+            className="mt-2"
+            style={{
+              color: isDark ? "#9ca3af" : "#4b5563",
+            }}
+          >
             Manage your employee records
           </p>
         </div>
