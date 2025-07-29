@@ -759,7 +759,7 @@ const Employees = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="space-y-1 mb-6">
+                  <div className="space-y-0 mb-6">
                     <div
                       className={`flex items-center text-sm rounded-lg p-3 transition-colors duration-200 ${
                         isDark
