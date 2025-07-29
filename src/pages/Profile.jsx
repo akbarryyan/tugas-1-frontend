@@ -66,10 +66,20 @@ const Profile = () => {
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <h1
+          className="text-3xl font-bold"
+          style={{
+            color: isDark ? "#f9fafb" : "#111827",
+          }}
+        >
           Profile Settings
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p
+          className="mt-2"
+          style={{
+            color: isDark ? "#9ca3af" : "#6b7280",
+          }}
+        >
           Manage your account information and preferences.
         </p>
       </div>
