@@ -230,6 +230,13 @@ const Employees = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <style>
+        {`
+          .filter-input::placeholder {
+            color: ${isDark ? "#9ca3af" : "#6b7280"};
+          }
+        `}
+      </style>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -298,10 +305,30 @@ const Employees = () => {
             </label>
             <input
               type="text"
-              className="input-field"
+              className="filter-input w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+              style={{
+                backgroundColor: isDark ? "#374151" : "#ffffff",
+                borderColor: isDark ? "#4b5563" : "#d1d5db",
+                color: isDark ? "#ffffff" : "#111827",
+              }}
               placeholder="Employee name..."
               value={filters.name}
               onChange={(e) => handleFilterChange("name", e.target.value)}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = isDark
+                  ? "#818cf8"
+                  : "#4f46e5";
+                e.currentTarget.style.boxShadow = `0 0 0 4px ${
+                  isDark ? "rgba(129, 140, 248, 0.2)" : "rgba(79, 70, 229, 0.1)"
+                }`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = isDark
+                  ? "#4b5563"
+                  : "#d1d5db";
+                e.currentTarget.style.boxShadow =
+                  "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+              }}
             />
           </div>
           <div>
@@ -314,15 +341,50 @@ const Employees = () => {
               Filter by Division
             </label>
             <select
-              className="input-field"
+              className="w-full px-4 py-3 rounded-xl border shadow-sm transition-all duration-200 focus:outline-none focus:ring-4"
+              style={{
+                backgroundColor: isDark ? "#374151" : "#ffffff",
+                borderColor: isDark ? "#4b5563" : "#d1d5db",
+                color: isDark ? "#ffffff" : "#111827",
+              }}
               value={filters.division_id}
               onChange={(e) =>
                 handleFilterChange("division_id", e.target.value)
               }
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = isDark
+                  ? "#818cf8"
+                  : "#4f46e5";
+                e.currentTarget.style.boxShadow = `0 0 0 4px ${
+                  isDark ? "rgba(129, 140, 248, 0.2)" : "rgba(79, 70, 229, 0.1)"
+                }`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = isDark
+                  ? "#4b5563"
+                  : "#d1d5db";
+                e.currentTarget.style.boxShadow =
+                  "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+              }}
             >
-              <option value="">All Divisions</option>
+              <option
+                value=""
+                style={{
+                  backgroundColor: isDark ? "#374151" : "#ffffff",
+                  color: isDark ? "#ffffff" : "#111827",
+                }}
+              >
+                All Divisions
+              </option>
               {divisions.map((division) => (
-                <option key={division.id} value={division.id}>
+                <option
+                  key={division.id}
+                  value={division.id}
+                  style={{
+                    backgroundColor: isDark ? "#374151" : "#ffffff",
+                    color: isDark ? "#ffffff" : "#111827",
+                  }}
+                >
                   {division.name}
                 </option>
               ))}
@@ -356,7 +418,36 @@ const Employees = () => {
                 setFilters({ name: "", division_id: "" });
                 setPagination((prev) => ({ ...prev, current_page: 1 }));
               }}
-              className="w-full flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold rounded-xl border border-gray-300 dark:border-gray-600 shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+              className="w-full flex items-center justify-center px-6 py-3 font-semibold rounded-xl border shadow-sm hover:shadow-md transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4"
+              style={{
+                backgroundColor: isDark ? "#374151" : "#f1f5f9",
+                borderColor: isDark ? "#4b5563" : "#cbd5e1",
+                color: isDark ? "#d1d5db" : "#475569",
+                "--focus-ring-color": isDark
+                  ? "rgba(156, 163, 175, 0.5)"
+                  : "rgba(148, 163, 184, 0.5)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = isDark
+                  ? "#4b5563"
+                  : "#e2e8f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = isDark
+                  ? "#374151"
+                  : "#f1f5f9";
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.boxShadow = `0 0 0 4px ${
+                  isDark
+                    ? "rgba(156, 163, 175, 0.5)"
+                    : "rgba(148, 163, 184, 0.5)"
+                }`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+              }}
             >
               <svg
                 className="w-4 h-4 mr-2"
